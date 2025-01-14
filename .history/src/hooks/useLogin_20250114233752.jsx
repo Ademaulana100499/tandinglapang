@@ -17,9 +17,10 @@ const useLogin = () => {
       console.log(response);
       setCookie("token", response.data.token);
       Swal.fire({
-        title: response.data.message,
+        title: response.message,
         icon: "success",
         draggable: true,
+        confirmButtonColor: "#F97316",
       });
       router.push("/");
     } catch (error) {
@@ -28,6 +29,7 @@ const useLogin = () => {
         title: "Email or Password is incorrect!",
         icon: "error",
         draggable: true,
+        confirmButtonColor: "#F97316",
       });
     }
   };

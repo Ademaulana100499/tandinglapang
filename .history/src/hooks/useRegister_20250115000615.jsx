@@ -1,21 +1,22 @@
 import { useRouter } from "next/router";
-import { setCookie } from "cookies-next";
-import { handleLogin } from "@/services/auth";
+import { handleRegister } from "@/services/auth";
 import { useState } from "react";
 import Swal from "sweetalert2";
 
-const useLogin = () => {
+const useRegister = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
+    name: "",
     password: "",
+    c_password: "",
+    phone_number: "",
   });
 
-  const handleFormLogin = async () => {
+  const handleFormRegister = async () => {
     try {
-      const response = await handleLogin(formData);
+      const response = await handleRegister(formData);
       console.log(response);
-      setCookie("token", response.data.token);
       Swal.fire({
         title: response.data.message,
         icon: "success",
@@ -25,14 +26,14 @@ const useLogin = () => {
     } catch (error) {
       console.error(error);
       Swal.fire({
-        title: "Email or Password is incorrect!",
+        title: error.data.message,
         icon: "error",
         draggable: true,
       });
     }
   };
 
-  return { handleFormLogin, setFormData, formData };
+  return { handleFormRegister, setFormData, formData };
 };
 
-export default useLogin;
+export default useRegister;

@@ -1,9 +1,7 @@
 import React from "react";
 import useLogin from "@/hooks/useLogin";
-import Link from "next/link";
 const LoginPage = () => {
   const { formData, setFormData, handleFormLogin } = useLogin();
-
   return (
     <div>
       <input
@@ -19,7 +17,6 @@ const LoginPage = () => {
         placeholder="Password"
       />
       <button onClick={handleFormLogin}>Login</button>
-      <Link href="/register">Register</Link>
     </div>
   );
 };

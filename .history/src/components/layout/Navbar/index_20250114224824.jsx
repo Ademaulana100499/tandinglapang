@@ -1,8 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { deleteCookie } from "cookies-next";
-
+import { removeCookies } from "cookies-next";
 export const Navbar = () => {
   const router = useRouter();
   const [token, setToken] = useState(null);
@@ -16,7 +15,7 @@ export const Navbar = () => {
     router.push("/login");
   };
   const handleLogout = () => {
-    deleteCookie("token");
+    removeCookies("token");
     router.push("/login");
   };
   return (
