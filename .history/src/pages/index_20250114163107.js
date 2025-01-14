@@ -1,7 +1,4 @@
 import Head from "next/head";
-import { Navbar } from "@/components/layout/Navbar";
-import { MainLayout } from "@/components/layout/MainLayout";
-import { Footer } from "@/components/layout/Footer";
 export default function Home() {
   return (
     <div>
@@ -11,11 +8,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/assets/faviconlogo.png" />
       </Head>
-      <div>
-        <Navbar />
-        <MainLayout />
-        <Footer />
-      </div>
+      <div></div>
     </div>
   );
 }
