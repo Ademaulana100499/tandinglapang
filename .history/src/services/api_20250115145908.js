@@ -9,7 +9,7 @@ export const fetchAPI = async ({ method, url, data }) => {
       data,
       baseURL: process.env.NEXT_PUBLIC_API_URL,
       headers: {
-        Authorization: `Bearer ${getCookie("token") ?? ""}`,
+        Authorization: `Bearer${getCookie("token") ?? ""}`,
       },
     });
     return response;

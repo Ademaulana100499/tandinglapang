@@ -1,4 +1,6 @@
+import { deleteCookie } from "cookies-next";
 import { fetchAPI } from "./api";
+import { deleteCookie } from "cookies-next";
 
 export const handleRegister = async (registerData) => {
   return await fetchAPI({
@@ -16,9 +18,19 @@ export const handleLogin = async (loginData) => {
   });
 };
 
+// auth.js
 export const handleLogout = async () => {
-  return await fetchAPI({
-    method: "POST",
-    url: "/logout",
-  });
+  try {
+    const response = await fetchAPI({
+      method: "POST",
+      url: "/logout",
+    });
+
+    // Hapus token dari localStorage jika menggunakan JWT
+    deleteCookie("token"); // Atau cookie jika digunakan
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
 };

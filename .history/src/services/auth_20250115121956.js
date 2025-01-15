@@ -16,9 +16,19 @@ export const handleLogin = async (loginData) => {
   });
 };
 
+// auth.js
 export const handleLogout = async () => {
-  return await fetchAPI({
-    method: "POST",
-    url: "/logout",
-  });
+  try {
+    const response = await fetchAPI({
+      method: "POST",
+      url: "/logout",
+    });
+
+    // Hapus token dari localStorage jika menggunakan JWT
+    localStorage.removeItem("authToken"); // Atau cookie jika digunakan
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
 };

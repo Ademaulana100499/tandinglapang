@@ -1,16 +1,10 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+im;
 import { useLogout } from "@/hooks/useLogout";
 export const Navbar = () => {
   const router = useRouter();
-  const [token, setToken] = useState(null);
-  useEffect(() => {
-    const cookies = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("token="));
-    setToken(cookies ? cookies.split("=")[1] : null);
-  }, []);
+  const token = Cookies.get("token");
   const handleLogin = () => {
     router.push("/login");
   };

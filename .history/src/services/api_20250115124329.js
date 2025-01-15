@@ -1,5 +1,4 @@
 import axios from "axios";
-import { getCookie } from "cookies-next";
 
 export const fetchAPI = async ({ method, url, data }) => {
   try {
@@ -9,7 +8,7 @@ export const fetchAPI = async ({ method, url, data }) => {
       data,
       baseURL: process.env.NEXT_PUBLIC_API_URL,
       headers: {
-        Authorization: `Bearer ${getCookie("token") ?? ""}`,
+        Authorization: `Bearer ${token}`, // pastikan token ada di sini
       },
     });
     return response;

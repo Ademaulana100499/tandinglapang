@@ -17,8 +17,18 @@ export const handleLogin = async (loginData) => {
 };
 
 export const handleLogout = async () => {
-  return await fetchAPI({
-    method: "POST",
-    url: "/logout",
-  });
+  try {
+    const response = await fetchAPI({
+      method: "POST",
+      url: "/logout",
+    });
+
+    if (response.status === 200) {
+      return response;
+    } else {
+      throw new Error("Logout failed");
+    }
+  } catch (error) {
+    throw new Error("Logout failed: " + error.message);
+  }
 };

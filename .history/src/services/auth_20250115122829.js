@@ -16,6 +16,7 @@ export const handleLogin = async (loginData) => {
   });
 };
 
+// auth.js
 export const handleLogout = async () => {
   return await fetchAPI({
     method: "POST",

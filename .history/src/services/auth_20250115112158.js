@@ -15,10 +15,3 @@ export const handleLogin = async (loginData) => {
     data: loginData,
   });
 };
-
-export const handleLogout = async () => {
-  return await fetchAPI({
-    method: "POST",
-    url: "/logout",
-  });
-};

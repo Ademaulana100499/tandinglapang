@@ -1,7 +1,6 @@
 import axios from "axios";
-import { getCookie } from "cookies-next";
 
-export const fetchAPI = async ({ method, url, data }) => {
+export const fetchAPI = async ({ method, url, data, headers }) => {
   try {
     const response = await axios({
       method,
@@ -9,7 +8,7 @@ export const fetchAPI = async ({ method, url, data }) => {
       data,
       baseURL: process.env.NEXT_PUBLIC_API_URL,
       headers: {
-        Authorization: `Bearer ${getCookie("token") ?? ""}`,
+        Authorization: token ? `Bearer ${token}` : "",
       },
     });
     return response;

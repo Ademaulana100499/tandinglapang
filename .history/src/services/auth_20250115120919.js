@@ -19,6 +19,6 @@ export const handleLogin = async (loginData) => {
 export const handleLogout = async () => {
   return await fetchAPI({
     method: "POST",
-    url: "/logout",
+    url: "/logout", // Sesuaikan endpoint logout jika perlu
   });
 };

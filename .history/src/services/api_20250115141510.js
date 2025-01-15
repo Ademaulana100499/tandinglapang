@@ -1,15 +1,16 @@
 import axios from "axios";
-import { getCookie } from "cookies-next";
 
 export const fetchAPI = async ({ method, url, data }) => {
   try {
     const response = await axios({
+      const token = document.cookie.split("; ").find(row => row.startsWith("token="))?.split("=")[1] || localStorage.getItem("token");
+
       method,
       url,
       data,
       baseURL: process.env.NEXT_PUBLIC_API_URL,
       headers: {
-        Authorization: `Bearer ${getCookie("token") ?? ""}`,
+        Authorization: token ? `Bearer ${token}` : "",
       },
     });
     return response;

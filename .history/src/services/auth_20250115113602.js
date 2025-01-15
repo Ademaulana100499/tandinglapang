@@ -8,17 +8,10 @@ export const handleRegister = async (registerData) => {
   });
 };
 
-export const handleLogin = async (loginData) => {
+export const handleLogin = async (a) => {
   return await fetchAPI({
     method: "POST",
     url: "/login",
-    data: loginData,
-  });
-};
-
-export const handleLogout = async () => {
-  return await fetchAPI({
-    method: "POST",
-    url: "/logout",
+    data: a,
   });
 };

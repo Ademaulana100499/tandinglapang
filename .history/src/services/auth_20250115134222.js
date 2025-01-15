@@ -20,5 +20,6 @@ export const handleLogout = async () => {
   return await fetchAPI({
     method: "POST",
     url: "/logout",
+    data:[];
   });
 };
