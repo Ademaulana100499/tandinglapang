@@ -5,10 +5,10 @@ export async function getServerSideProps({ req }) {
   const token = req.cookies.token || "";
   if (!token) return { redirect: { destination: "/login", permanent: false } };
   try {
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/me`, {
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/me`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    return { props: { data: res.data.data || [] } };
+    return { props: { data } };
   } catch (error) {
     console.error("Error fetching profile:", error);
     return { props: { data: {} } };
@@ -17,10 +17,8 @@ export async function getServerSideProps({ req }) {
 
 const ProfilePage = ({ data }) => (
   <div>
-    <h1>Nama: {data.name}</h1>
-    <h1>Email: {data.email}</h1>
-    <h1>Role: {data.role}</h1>
-    <h1>Phone:{data.phone_number}</h1>
+    <h1>Nama: {data.data.name || "Tidak tersedia"}</h1>
+    <h1>Email: {data.data.email}</h1>
   </div>
 );
 

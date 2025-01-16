@@ -19,8 +19,6 @@ const ProfilePage = ({ data }) => (
   <div>
     <h1>Nama: {data.name}</h1>
     <h1>Email: {data.email}</h1>
-    <h1>Role: {data.role}</h1>
-    <h1>Phone:{data.phone_number}</h1>
   </div>
 );
 

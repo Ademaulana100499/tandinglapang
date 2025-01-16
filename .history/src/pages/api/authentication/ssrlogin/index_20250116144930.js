@@ -8,8 +8,11 @@ export default async function handler(req, res) {
       { email, password },
       { headers: { "Content-Type": "application/json" } }
     );
+
+    // Return success response
     res.json({ message: "Login successful", data: data?.data });
   } catch (error) {
+    // Return error response
     res.json({
       message: "Login failed",
       error: error.response?.data || error.message,

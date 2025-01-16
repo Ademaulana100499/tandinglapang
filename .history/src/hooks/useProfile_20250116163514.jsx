@@ -1,5 +1,5 @@
-import { handleLogout } from "@/pages/api/authentication/services/auth";
-import { getProfile } from "@/pages/api/authentication/services/profile";
+import { handleLogout } from "@/services/auth";
+import { getProfile } from "@/services/profile";
 import { deleteCookie, getCookie, hasCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";

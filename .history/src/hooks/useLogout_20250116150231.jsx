@@ -7,8 +7,8 @@ export const useLogout = () => {
 
   const handleButtonLogout = async () => {
     try {
-      const res = await axios.post("/api/authentication/ssrlogout");
-      console.log("Logout successful:", res);
+      const res = await axios.post("/api/authentication/ssrlogout", {});
+      console.log("Logout successful:", res.data);
       deleteCookie("token");
       router.push("/login");
     } catch (error) {
