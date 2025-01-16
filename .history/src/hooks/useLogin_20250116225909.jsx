@@ -31,11 +31,7 @@ const useLogin = () => {
       router.push("/");
     } catch (error) {
       console.log(error);
-      Swal.fire({
-        title: error.data.message,
-        icon: "error",
-        draggable: true,
-      });
+      alert("Password or email failed!");
     }
   };
 

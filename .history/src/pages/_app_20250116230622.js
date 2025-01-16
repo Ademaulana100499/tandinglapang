@@ -1,4 +1,3 @@
-import "@/styles/globals.css";
 import { PagesTopLoader } from "nextjs-toploader/pages";
 
 export default function App({ Component, pageProps }) {
