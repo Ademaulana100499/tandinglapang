@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { useLogout } from "@/hooks/useLogout";
+
 export async function getServerSideProps({ req }) {
   const token = req.cookies.token || "";
   try {
@@ -13,18 +13,15 @@ export async function getServerSideProps({ req }) {
     return { props: { data: {} } };
   }
 }
-
-const ProfilePage = ({ data }) => {
-  const { handleButtonLogout } = useLogout();
-  return (
-    <div>
-      <h1>Nama: {data.name}</h1>
-      <h1>Email: {data.email}</h1>
-      <h1>Role: {data.role}</h1>
-      <h1>Phone:{data.phone_number}</h1>
-      <button onClick={handleButtonLogout}> Logout</button>
-    </div>
-  );
-};
+const { handleButtonLogout } = useLogout();
+const ProfilePage = ({ data }) => (
+  <div>
+    <h1>Nama: {data.name}</h1>
+    <h1>Email: {data.email}</h1>
+    <h1>Role: {data.role}</h1>
+    <h1>Phone:{data.phone_number}</h1>
+    <button onClick={handleButtonLogout}> Logout</button>
+  </div>
+);
 
 export default ProfilePage;

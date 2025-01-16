@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { useLogout } from "@/hooks/useLogout";
+
 export async function getServerSideProps({ req }) {
   const token = req.cookies.token || "";
   try {

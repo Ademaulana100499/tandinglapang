@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { useLogout } from "@/hooks/useLogout";
+
 export async function getServerSideProps({ req }) {
   const token = req.cookies.token || "";
   try {
@@ -15,7 +15,6 @@ export async function getServerSideProps({ req }) {
 }
 
 const ProfilePage = ({ data }) => {
-  const { handleButtonLogout } = useLogout();
   return (
     <div>
       <h1>Nama: {data.name}</h1>

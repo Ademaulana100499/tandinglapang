@@ -1,37 +1,33 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useLogout } from "@/hooks/useLogout";
 import Link from "next/link";
 import axios from "axios";
-import { getCookie } from "cookies-next";
+
 export const Navbar = () => {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const token = getCookie("token");
+  const token = "242|IV8K2DZYJWo7Ed2zorf1aypeJnOvIcuqTh3seFHcdd9bfa2e";
   const router = useRouter();
 
-  const getData = async () => {
+  const getData = async (token) => {
+    if (!token) return; // Jangan panggil API jika token kosong
     try {
       const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
-      console.log(res.data);
-      setData(res.data.data);
-      setLoading(false);
+      console.log(res.data); // Cek apakah data benar
+      setData(res.data);
     } catch (error) {
-      console.log(error);
-      setLoading(false);
+      console.error("Error fetching data:", error);
     }
   };
 
   useEffect(() => {
     if (token) {
-      getData(token);
-    } else {
-      setLoading(false);
+      getData(token); // Hanya panggil getData jika token sudah ada
     }
   }, [token]);
 
@@ -39,14 +35,15 @@ export const Navbar = () => {
     router.push("/login");
   };
 
+  const { handleButtonLogout } = useLogout();
+
   return (
     <div className="flex justify-between">
       <h1>Navbar</h1>
-
-      {loading ? (
-        <p>Loading...</p>
-      ) : token ? (
-        <Link href="/profile">{data?.name}</Link>
+      {data ? <h1>{data.name}</h1> : <h1>Loading...</h1>}
+      <Link href="/profile">Profile</Link>
+      {token ? (
+        <button onClick={handleButtonLogout}>Logout</button>
       ) : (
         <button onClick={handleLogin}>Login</button>
       )}
