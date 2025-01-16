@@ -10,14 +10,6 @@ const useLogin = () => {
     password: "",
   });
   const handleFormLogin = async () => {
-    if (!formData.email || !formData.password) {
-      Swal.fire({
-        title: "Email & Password Kosong!",
-        icon: "error",
-        draggable: true,
-      });
-      return;
-    }
     try {
       const res = await axios.post("/api/authentication/ssrlogin", formData, {
         headers: {
@@ -33,8 +25,12 @@ const useLogin = () => {
       setCookie("token", res.data.data.token);
       router.push("/");
     } catch (error) {
+      const errorMessage = error.response?.data?.message || "Login failed";
+      const validationErrors = error.response?.data?.error?.data;
+
       Swal.fire({
-        title: "Email atau Passord Salah",
+        title: "Login Error",
+        text: errorText,
         icon: "error",
         draggable: true,
       });

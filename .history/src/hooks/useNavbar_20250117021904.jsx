@@ -7,7 +7,7 @@ const useNavbar = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const token = getCookie("token");
-  const hiddenPages = ["/profile", "/login", "/register"];
+  const hiddenPages = ["/profile", "/login"];
   const isHidden = hiddenPages.includes(router.pathname);
   useEffect(() => {
     const getData = async () => {

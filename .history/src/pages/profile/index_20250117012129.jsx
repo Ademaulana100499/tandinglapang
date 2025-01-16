@@ -3,9 +3,11 @@ import axios from "axios";
 import { useLogout } from "@/hooks/useLogout";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { useBack } from "@/hooks/useBack";
 import Link from "next/link";
 const ProfilePage = ({ data }) => {
   const { handleButtonLogout } = useLogout();
+  const { handleButtonBack } = useBack();
 
   return (
     <div>

@@ -2,12 +2,12 @@ import React from "react";
 import Link from "next/link";
 import useNavbar from "@/hooks/useNavbar";
 export const Navbar = () => {
-  const { data, loading, token, isHidden } = useNavbar();
+  const { data, loading, token, hiddenPages } = useNavbar();
   return (
     <div className="flex justify-between bg-red-500">
       <h1>Navbar</h1>
 
-      {!isHidden &&
+      {!isHidden && // Jika bukan halaman login/profile, tampilkan link
         (loading ? (
           <p>Loading...</p>
         ) : token ? (

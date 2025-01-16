@@ -12,7 +12,7 @@ const useLogin = () => {
   const handleFormLogin = async () => {
     if (!formData.email || !formData.password) {
       Swal.fire({
-        title: "Email & Password Kosong!",
+        title: "Login Error",
         icon: "error",
         draggable: true,
       });
@@ -34,7 +34,7 @@ const useLogin = () => {
       router.push("/");
     } catch (error) {
       Swal.fire({
-        title: "Email atau Passord Salah",
+        title: "Login Error",
         icon: "error",
         draggable: true,
       });

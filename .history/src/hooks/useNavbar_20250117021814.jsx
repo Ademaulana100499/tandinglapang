@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { getCookie } from "cookies-next";
-import router from "next/router";
 
 const useNavbar = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const token = getCookie("token");
-  const hiddenPages = ["/profile", "/login", "/register"];
+  const hiddenPages = ["/profile", "/login"];
   const isHidden = hiddenPages.includes(router.pathname);
   useEffect(() => {
     const getData = async () => {
@@ -34,7 +33,7 @@ const useNavbar = () => {
     getData();
   }, [token]);
 
-  return { data, loading, token, isHidden };
+  return { data, loading, token, hiddenPages };
 };
 
 export default useNavbar;

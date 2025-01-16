@@ -3,14 +3,15 @@ import axios from "axios";
 import { useLogout } from "@/hooks/useLogout";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import Link from "next/link";
+import { useBack } from "@/hooks/useBack";
 const ProfilePage = ({ data }) => {
   const { handleButtonLogout } = useLogout();
+  const { handleButtonBack } = useBack();
 
   return (
     <div>
       <Navbar />
-      <Link href="/">back</Link>
+      <button onclick={handleButtonBack}>Kembali</button>
       <h1>Nama: {data.name}</h1>
       <h1>Email: {data.email}</h1>
       <h1>Role: {data.role}</h1>

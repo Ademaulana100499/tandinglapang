@@ -7,7 +7,7 @@ export const Navbar = () => {
     <div className="flex justify-between bg-red-500">
       <h1>Navbar</h1>
 
-      {!isHidden &&
+      {!isHidden && // Jika bukan halaman login/profile, tampilkan link
         (loading ? (
           <p>Loading...</p>
         ) : token ? (

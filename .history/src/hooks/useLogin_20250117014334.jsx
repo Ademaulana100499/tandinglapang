@@ -34,7 +34,7 @@ const useLogin = () => {
       router.push("/");
     } catch (error) {
       Swal.fire({
-        title: "Email atau Passord Salah",
+        title: "Login Error",
         icon: "error",
         draggable: true,
       });

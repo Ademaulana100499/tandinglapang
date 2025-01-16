@@ -11,11 +11,7 @@ const useLogin = () => {
   });
   const handleFormLogin = async () => {
     if (!formData.email || !formData.password) {
-      Swal.fire({
-        title: "Email & Password Kosong!",
-        icon: "error",
-        draggable: true,
-      });
+      alert("Email or password cannot be empty");
       return;
     }
     try {
@@ -34,7 +30,7 @@ const useLogin = () => {
       router.push("/");
     } catch (error) {
       Swal.fire({
-        title: "Email atau Passord Salah",
+        title: "Login Error",
         icon: "error",
         draggable: true,
       });

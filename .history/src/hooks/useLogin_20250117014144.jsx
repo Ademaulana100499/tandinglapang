@@ -10,14 +10,6 @@ const useLogin = () => {
     password: "",
   });
   const handleFormLogin = async () => {
-    if (!formData.email || !formData.password) {
-      Swal.fire({
-        title: "Email & Password Kosong!",
-        icon: "error",
-        draggable: true,
-      });
-      return;
-    }
     try {
       const res = await axios.post("/api/authentication/ssrlogin", formData, {
         headers: {
@@ -34,7 +26,7 @@ const useLogin = () => {
       router.push("/");
     } catch (error) {
       Swal.fire({
-        title: "Email atau Passord Salah",
+        title: "Login Error",
         icon: "error",
         draggable: true,
       });
