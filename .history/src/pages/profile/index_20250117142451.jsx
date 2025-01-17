@@ -4,7 +4,7 @@ import { useLogout } from "@/hooks/useLogout";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { getCookie } from "cookies-next";
 import { useRouter } from "next/router";
@@ -14,13 +14,24 @@ const ProfilePage = ({ data }) => {
   const id = data?.id;
   const router = useRouter();
   const [formData, setFormData] = useState({
-    email: data.email,
-    name: data.name,
-    password: data.password,
-    c_password: data.c_password,
+    email: "",
+    name: "",
+    password: "",
+    c_password: "",
     role: "user",
-    phone_number: data.phone_number,
+    phone_number: "",
   });
+  useEffect(() => {
+    if (data) {
+      setFormData({
+        email: data.email || "",
+        name: data.name || "",
+        phone_number: data.phone_number || "",
+        password: "",
+        c_password: "",
+      });
+    }
+  }, [data]);
   const handleEditProfile = async () => {
     try {
       const res = await axios.post(
@@ -71,6 +82,7 @@ const ProfilePage = ({ data }) => {
               <input
                 type="text"
                 value={formData.name}
+                defaultValue={data.name}
                 onChange={(e) =>
                   setFormData({ ...formData, name: e.target.value })
                 }
@@ -85,15 +97,10 @@ const ProfilePage = ({ data }) => {
                 placeholder={data.email}
               />
               <input
-                type="text"
+                type="number"
                 value={formData.phone_number}
                 onChange={(e) =>
                   setFormData({ ...formData, phone_number: e.target.value })
-                }
-                inputMode="numeric"
-                pattern="[0-9]*"
-                onInput={(e) =>
-                  (e.target.value = e.target.value.replace(/[^0-9]/g, ""))
                 }
                 placeholder={data.phone_number}
               />

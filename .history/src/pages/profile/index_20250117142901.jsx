@@ -14,12 +14,12 @@ const ProfilePage = ({ data }) => {
   const id = data?.id;
   const router = useRouter();
   const [formData, setFormData] = useState({
-    email: data.email,
-    name: data.name,
-    password: data.password,
-    c_password: data.c_password,
+    email: "",
+    name: "",
+    password: "",
+    c_password: "",
     role: "user",
-    phone_number: data.phone_number,
+    phone_number: "",
   });
   const handleEditProfile = async () => {
     try {
@@ -90,11 +90,7 @@ const ProfilePage = ({ data }) => {
                 onChange={(e) =>
                   setFormData({ ...formData, phone_number: e.target.value })
                 }
-                inputMode="numeric"
-                pattern="[0-9]*"
-                onInput={(e) =>
-                  (e.target.value = e.target.value.replace(/[^0-9]/g, ""))
-                }
+                inputMode="telephone"
                 placeholder={data.phone_number}
               />
               <input

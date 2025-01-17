@@ -5,45 +5,50 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import Link from "next/link";
 import { useState } from "react";
-import Swal from "sweetalert2";
-import { getCookie } from "cookies-next";
-import { useRouter } from "next/router";
 const ProfilePage = ({ data }) => {
   const { handleButtonLogout } = useLogout();
   const [isOpen, setIsOpen] = useState(false);
-  const id = data?.id;
-  const router = useRouter();
   const [formData, setFormData] = useState({
-    email: data.email,
-    name: data.name,
-    password: data.password,
-    c_password: data.c_password,
+    email: "",
+    name: "",
+    password: "",
+    c_password: "",
     role: "user",
-    phone_number: data.phone_number,
+    phone_number: "",
   });
   const handleEditProfile = async () => {
     try {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/update-user/${id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/me`,
         formData,
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${getCookie("token")}`,
           },
         }
       );
+
       Swal.fire({
         title: res.data.message,
         icon: "success",
         draggable: true,
-      }).then(() => {
-        router.reload();
       });
+      router.push("/login");
     } catch (error) {
-      console.log(error);
+      const errorMessage =
+        error.response?.data?.message || "Registration failed";
+      const validationErrors = error.response?.data?.error?.data;
+
+      let errorText = errorMessage;
+      if (validationErrors) {
+        errorText += `\n\n${Object.entries(validationErrors)
+          .map(([key, messages]) => `${key}: ${messages.join(", ")}`)
+          .join("\n")}`;
+      }
+
       Swal.fire({
-        title: "Update Error",
+        title: "Registration Error",
+        text: errorText,
         icon: "error",
         draggable: true,
       });
@@ -68,54 +73,12 @@ const ProfilePage = ({ data }) => {
                 ×
               </button>
               <h2>Edit Profil</h2>
-              <input
-                type="text"
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
-                placeholder={data.name}
-              />
-              <input
-                type="email"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-                placeholder={data.email}
-              />
-              <input
-                type="text"
-                value={formData.phone_number}
-                onChange={(e) =>
-                  setFormData({ ...formData, phone_number: e.target.value })
-                }
-                inputMode="numeric"
-                pattern="[0-9]*"
-                onInput={(e) =>
-                  (e.target.value = e.target.value.replace(/[^0-9]/g, ""))
-                }
-                placeholder={data.phone_number}
-              />
-              <input
-                type="text"
-                value={formData.password}
-                onChange={(e) =>
-                  setFormData({ ...formData, password: e.target.value })
-                }
-                placeholder="New Password"
-              />
-              <input
-                type="text"
-                value={formData.c_password}
-                onChange={(e) =>
-                  setFormData({ ...formData, c_password: e.target.value })
-                }
-                placeholder="Confirm Password"
-              />
+              <input type="text" placeholder={data.name} />
+              <input type="email" placeholder={data.email} />
+              <input type="number" placeholder={data.phone_number} />
               <div>
                 <button onClick={() => setIsOpen(false)}>Batal</button>
-                <button onClick={handleEditProfile}>Simpan</button>
+                <button>Simpan</button>
               </div>
             </div>
           </div>

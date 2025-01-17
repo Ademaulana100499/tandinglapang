@@ -5,21 +5,17 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import Link from "next/link";
 import { useState } from "react";
-import Swal from "sweetalert2";
-import { getCookie } from "cookies-next";
-import { useRouter } from "next/router";
 const ProfilePage = ({ data }) => {
   const { handleButtonLogout } = useLogout();
   const [isOpen, setIsOpen] = useState(false);
   const id = data?.id;
-  const router = useRouter();
   const [formData, setFormData] = useState({
-    email: data.email,
-    name: data.name,
-    password: data.password,
-    c_password: data.c_password,
+    email: "",
+    name: "",
+    password: "",
+    c_password: "",
     role: "user",
-    phone_number: data.phone_number,
+    phone_number: "",
   });
   const handleEditProfile = async () => {
     try {
@@ -29,7 +25,6 @@ const ProfilePage = ({ data }) => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${getCookie("token")}`,
           },
         }
       );
@@ -37,8 +32,6 @@ const ProfilePage = ({ data }) => {
         title: res.data.message,
         icon: "success",
         draggable: true,
-      }).then(() => {
-        router.reload();
       });
     } catch (error) {
       console.log(error);
@@ -70,7 +63,6 @@ const ProfilePage = ({ data }) => {
               <h2>Edit Profil</h2>
               <input
                 type="text"
-                value={formData.name}
                 onChange={(e) =>
                   setFormData({ ...formData, name: e.target.value })
                 }
@@ -78,22 +70,15 @@ const ProfilePage = ({ data }) => {
               />
               <input
                 type="email"
-                value={formData.email}
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
                 placeholder={data.email}
               />
               <input
-                type="text"
-                value={formData.phone_number}
+                type="number"
                 onChange={(e) =>
                   setFormData({ ...formData, phone_number: e.target.value })
-                }
-                inputMode="numeric"
-                pattern="[0-9]*"
-                onInput={(e) =>
-                  (e.target.value = e.target.value.replace(/[^0-9]/g, ""))
                 }
                 placeholder={data.phone_number}
               />

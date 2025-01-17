@@ -14,12 +14,12 @@ const ProfilePage = ({ data }) => {
   const id = data?.id;
   const router = useRouter();
   const [formData, setFormData] = useState({
-    email: data.email,
-    name: data.name,
-    password: data.password,
-    c_password: data.c_password,
+    email: "",
+    name: "",
+    password: "",
+    c_password: "",
     role: "user",
-    phone_number: data.phone_number,
+    phone_number: "",
   });
   const handleEditProfile = async () => {
     try {

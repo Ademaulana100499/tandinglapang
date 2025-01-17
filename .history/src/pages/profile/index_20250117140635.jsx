@@ -7,19 +7,17 @@ import Link from "next/link";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { getCookie } from "cookies-next";
-import { useRouter } from "next/router";
 const ProfilePage = ({ data }) => {
   const { handleButtonLogout } = useLogout();
   const [isOpen, setIsOpen] = useState(false);
   const id = data?.id;
-  const router = useRouter();
   const [formData, setFormData] = useState({
-    email: data.email,
-    name: data.name,
-    password: data.password,
-    c_password: data.c_password,
+    email: "",
+    name: "",
+    password: "",
+    c_password: "",
     role: "user",
-    phone_number: data.phone_number,
+    phone_number: "",
   });
   const handleEditProfile = async () => {
     try {
@@ -33,12 +31,13 @@ const ProfilePage = ({ data }) => {
           },
         }
       );
+
       Swal.fire({
         title: res.data.message,
         icon: "success",
         draggable: true,
       }).then(() => {
-        router.reload();
+        router.reload(); // 🔄 Reload halaman tanpa refresh total
       });
     } catch (error) {
       console.log(error);
@@ -85,15 +84,10 @@ const ProfilePage = ({ data }) => {
                 placeholder={data.email}
               />
               <input
-                type="text"
+                type="number"
                 value={formData.phone_number}
                 onChange={(e) =>
                   setFormData({ ...formData, phone_number: e.target.value })
-                }
-                inputMode="numeric"
-                pattern="[0-9]*"
-                onInput={(e) =>
-                  (e.target.value = e.target.value.replace(/[^0-9]/g, ""))
                 }
                 placeholder={data.phone_number}
               />
