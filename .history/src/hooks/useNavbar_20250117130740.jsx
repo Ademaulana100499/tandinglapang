@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { getCookie } from "cookies-next";
-import { useRouter } from "next/router";
 
 const useNavbar = () => {
   const [data, setData] = useState(null);
