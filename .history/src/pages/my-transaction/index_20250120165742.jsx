@@ -2,10 +2,8 @@ import React from "react";
 import axios from "axios";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { useRouter } from "next/router";
 
 const MyTransaction = ({ transactions, page, lastPage }) => {
-  const router = useRouter();
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />

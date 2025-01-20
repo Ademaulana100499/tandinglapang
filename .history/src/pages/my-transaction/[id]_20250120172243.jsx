@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
+import { useState, useEffect } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import Image from "next/image";
-
-const DetailMyTransaction = ({ data }) => {
+const detailMyTransaction = ({ data }) => {
   const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (data.transaction_items.sport_activities.description) {
-      setDescription(data.transaction_items.sport_activities.description);
+    if (data.description) {
+      setDescription(data.description);
     }
     setIsLoading(false);
-  }, [data.transaction_items.sport_activities.description]);
+  }, [data.description]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -22,7 +22,6 @@ const DetailMyTransaction = ({ data }) => {
   if (!data || Object.keys(data).length === 0) {
     return <div>Data not found</div>;
   }
-
   return (
     <div>
       <Navbar />
@@ -49,13 +48,10 @@ const DetailMyTransaction = ({ data }) => {
           <div className="mt-4">
             <h3 className="font-semibold">Transaction Item</h3>
             <h4>{data.transaction_items.title}</h4>
-            <Image
+            <img
               src={data.transaction_items.sport_activities.image_url}
               alt={data.transaction_items.title}
-              width={500}
-              height={300}
-              className="rounded-lg mt-2"
-              layout="intrinsic"
+              className="w-full h-auto rounded-lg mt-2"
             />
             <p>
               <strong>Description:</strong>{" "}
@@ -102,8 +98,7 @@ const DetailMyTransaction = ({ data }) => {
   );
 };
 
-export default DetailMyTransaction;
-
+export default detailMyTransaction;
 export async function getServerSideProps(context) {
   const param = context.params || { id: "" };
   try {

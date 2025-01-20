@@ -2,10 +2,8 @@ import React from "react";
 import axios from "axios";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { useRouter } from "next/router";
 
 const MyTransaction = ({ transactions, page, lastPage }) => {
-  const router = useRouter();
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />
@@ -16,7 +14,7 @@ const MyTransaction = ({ transactions, page, lastPage }) => {
             {transactions.map((transaction) => (
               <div
                 key={transaction.invoice_id}
-                onClick={() => router.push(`/my-transaction/${transaction.id}`)}
+                onClick={() => router.push(`/transaction/${transaction.id}`)}
                 className="bg-white shadow-md rounded-lg p-4">
                 <h2 className="text-lg font-semibold">
                   Invoice: {transaction.invoice_id}

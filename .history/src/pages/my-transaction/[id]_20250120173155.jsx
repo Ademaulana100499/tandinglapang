@@ -9,11 +9,11 @@ const DetailMyTransaction = ({ data }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (data.transaction_items.sport_activities.description) {
-      setDescription(data.transaction_items.sport_activities.description);
+    if (data.description) {
+      setDescription(data.description);
     }
     setIsLoading(false);
-  }, [data.transaction_items.sport_activities.description]);
+  }, [data.description]);
 
   if (isLoading) {
     return <div>Loading...</div>;

@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
+import { useState, useEffect } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import Image from "next/image";
-
-const DetailMyTransaction = ({ data }) => {
+const detailMyTransaction = ({ data }) => {
   const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (data.transaction_items.sport_activities.description) {
-      setDescription(data.transaction_items.sport_activities.description);
+    if (data.description) {
+      setDescription(data.description);
     }
     setIsLoading(false);
-  }, [data.transaction_items.sport_activities.description]);
+  }, [data.description]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -22,7 +22,6 @@ const DetailMyTransaction = ({ data }) => {
   if (!data || Object.keys(data).length === 0) {
     return <div>Data not found</div>;
   }
-
   return (
     <div>
       <Navbar />
@@ -52,10 +51,10 @@ const DetailMyTransaction = ({ data }) => {
             <Image
               src={data.transaction_items.sport_activities.image_url}
               alt={data.transaction_items.title}
-              width={500}
-              height={300}
+              width={500} // Menentukan lebar gambar (sesuaikan dengan kebutuhan)
+              height={300} // Menentukan tinggi gambar (sesuaikan dengan kebutuhan)
               className="rounded-lg mt-2"
-              layout="intrinsic"
+              layout="intrinsic" // Mengatur gambar agar proporsional
             />
             <p>
               <strong>Description:</strong>{" "}
@@ -102,8 +101,7 @@ const DetailMyTransaction = ({ data }) => {
   );
 };
 
-export default DetailMyTransaction;
-
+export default detailMyTransaction;
 export async function getServerSideProps(context) {
   const param = context.params || { id: "" };
   try {
