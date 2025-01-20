@@ -16,6 +16,7 @@ const ActivityPage = ({ data, page }) => {
       },
     });
   };
+
   return (
     <div>
       <Authorization>

@@ -123,9 +123,7 @@ const ProfilePage = ({ data }) => {
             </div>
           )}
         </div>
-        <div>
-          <Link href="/my-transaction">My Transaction</Link>
-        </div>
+        <Link href="/my-transaction">My Transaction</Link>
         <button onClick={handleButtonLogout}> Logout</button>
       </div>
       <Footer />
