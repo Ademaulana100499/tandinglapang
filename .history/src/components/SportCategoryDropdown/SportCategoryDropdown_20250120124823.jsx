@@ -25,6 +25,8 @@ const LocationAndSportCategoryDropdown = () => {
         setTotalProvincePages(response.data.result.last_page);
       } catch (error) {
         console.error("Error fetching provinces:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchProvinces();
@@ -35,12 +37,15 @@ const LocationAndSportCategoryDropdown = () => {
 
     const fetchCities = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(
           `${process.env.NEXT_PUBLIC_API_URL}/location/cities/${selectedProvince.value}`
         );
         setCities(response.data.result.data);
       } catch (error) {
         console.error("Error fetching cities:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchCities();
@@ -49,12 +54,15 @@ const LocationAndSportCategoryDropdown = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(
           `${process.env.NEXT_PUBLIC_API_URL}/sport-categories?is_paginate=true&per_page=5&page=${categoryPage}`
         );
         setCategories(response.data.result.data);
       } catch (error) {
         console.error("Error fetching categories:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchCategories();
