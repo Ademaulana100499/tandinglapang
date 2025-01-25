@@ -23,7 +23,7 @@ const FlipLink = ({ children, href }) => {
       href={href}
       className="relative block overflow-hidden whitespace-nowrap text-6xl font-black uppercase sm:text-7xl md:text-8xl lg:text-9xl tracking-widest"
       style={{
-        lineHeight: 1.2,
+        lineHeight: 0.9,
       }}>
       <div>
         {children.split("").map((l, i) => (

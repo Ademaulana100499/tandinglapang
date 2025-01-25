@@ -20,12 +20,22 @@ const FlipLink = ({ children, href }) => {
     <motion.a
       initial="initial"
       whileHover="hovered"
+      animate="animate"
       href={href}
       className="relative block overflow-hidden whitespace-nowrap text-6xl font-black uppercase sm:text-7xl md:text-8xl lg:text-9xl tracking-widest"
       style={{
-        lineHeight: 1.2,
+        lineHeight: 0.999,
       }}>
-      <div>
+      <motion.div
+        animate={{
+          y: ["0%", "-100%"],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          repeatType: "loop",
+          ease: "easeInOut",
+        }}>
         {children.split("").map((l, i) => (
           <motion.span
             variants={{
@@ -46,8 +56,17 @@ const FlipLink = ({ children, href }) => {
             {l}
           </motion.span>
         ))}
-      </div>
-      <div className="absolute inset-0">
+      </motion.div>
+      <motion.div
+        animate={{
+          y: ["100%", "0%"],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          repeatType: "loop",
+          ease: "easeInOut",
+        }}>
         {children.split("").map((l, i) => (
           <motion.span
             variants={{
@@ -68,7 +87,7 @@ const FlipLink = ({ children, href }) => {
             {l}
           </motion.span>
         ))}
-      </div>
+      </motion.div>
     </motion.a>
   );
 };

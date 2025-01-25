@@ -19,11 +19,12 @@ const FlipLink = ({ children, href }) => {
   return (
     <motion.a
       initial="initial"
+      animate="animate"
       whileHover="hovered"
       href={href}
       className="relative block overflow-hidden whitespace-nowrap text-6xl font-black uppercase sm:text-7xl md:text-8xl lg:text-9xl tracking-widest"
       style={{
-        lineHeight: 1.2,
+        lineHeight: 0.999,
       }}>
       <div>
         {children.split("").map((l, i) => (
@@ -32,6 +33,9 @@ const FlipLink = ({ children, href }) => {
               initial: {
                 y: 0,
               },
+              animate: {
+                y: ["0%", "-100%"], // Gerakan terus-menerus
+              },
               hovered: {
                 y: "-100%",
               },
@@ -39,7 +43,10 @@ const FlipLink = ({ children, href }) => {
             transition={{
               duration: DURATION,
               ease: "easeInOut",
+              repeat: Infinity, // Ulang animasi terus menerus
+              repeatType: "reverse", // Balikkan animasi ke posisi awal
               delay: STAGGER * i,
+              repeatDelay: 2, // Setiap 2 detik
             }}
             className="inline-block"
             key={i}>
@@ -53,6 +60,9 @@ const FlipLink = ({ children, href }) => {
             variants={{
               initial: {
                 y: "100%",
+              },
+              animate: {
+                y: 0,
               },
               hovered: {
                 y: 0,

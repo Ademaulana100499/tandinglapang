@@ -1,33 +1,13 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { FiUser } from "react-icons/fi";
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import useLogin from "@/hooks/useLogin";
-import Swal from "sweetalert2";
-
-export const LoginModal = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <div className="flex justify-center items-center h-screen">
-      <button
-        onClick={() => setIsOpen(true)}
-        className="px-6 py-2 bg-green-600 text-white rounded-md shadow-md hover:bg-green-700 transition-all">
-        Masuk
-      </button>
-      <SpringModal isOpen={isOpen} setIsOpen={setIsOpen} />
-    </div>
-  );
-};
-
 const SpringModal = ({ isOpen, setIsOpen }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const { formData, setFormData, handleFormLogin } = useLogin();
-  useEffect(() => {
-    if (isOpen) {
-      setIsForgotPassword(false);
-    }
-  }, [isOpen]);
+
+  // Menambahkan useEffect untuk mereset status saat modal ditutup
+  const handleCloseModal = () => {
+    setIsOpen(false); // Menutup modal
+    setIsForgotPassword(false); // Reset halaman ke login
+  };
 
   return (
     <AnimatePresence>
@@ -36,14 +16,14 @@ const SpringModal = ({ isOpen, setIsOpen }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          onClick={() => setIsOpen(false)}
+          onClick={handleCloseModal} // Panggil handleCloseModal saat klik di luar modal
           className="bg-black bg-opacity-60 fixed inset-0 z-50 flex justify-center items-center min-h-screen p-4">
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-white p-6  shadow-xl w-full max-w-md text-gray-800 relative">
+            className="bg-white p-6 shadow-xl w-full max-w-md text-gray-800 relative">
             <div className="flex flex-col items-center text-center">
               <div className="bg-green-500 w-16 h-16 flex items-center justify-center rounded-full mb-4">
                 <FiUser className="text-white text-3xl" />
@@ -151,7 +131,7 @@ const SpringModal = ({ isOpen, setIsOpen }) => {
                           draggable: true,
                           confirmButtonColor: "#31c360",
                         }).then(() => {
-                          setIsOpen(false);
+                          handleCloseModal(); // Close modal after success
                         });
                       }
                     }}
@@ -170,7 +150,7 @@ const SpringModal = ({ isOpen, setIsOpen }) => {
               )}
 
               <button
-                onClick={() => setIsOpen(false)}
+                onClick={handleCloseModal} // Use handleCloseModal for the cancel button
                 className="w-full mt-3 bg-gray-200 text-gray-700 py-3 hover:bg-gray-300 transition-all">
                 Batal
               </button>

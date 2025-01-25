@@ -1,9 +1,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { FiUser } from "react-icons/fi";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import useLogin from "@/hooks/useLogin";
-import Swal from "sweetalert2";
 
 export const LoginModal = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,11 +22,6 @@ const SpringModal = ({ isOpen, setIsOpen }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const { formData, setFormData, handleFormLogin } = useLogin();
-  useEffect(() => {
-    if (isOpen) {
-      setIsForgotPassword(false);
-    }
-  }, [isOpen]);
 
   return (
     <AnimatePresence>
@@ -130,35 +124,12 @@ const SpringModal = ({ isOpen, setIsOpen }) => {
                     className="w-full p-3 rounded border border-gray-300 focus:ring-2 focus:ring-green-500 mb-4"
                   />
                   <button
-                    type="button"
-                    onClick={() => {
-                      if (!formData.email) {
-                        Swal.fire({
-                          title: "Email tidak boleh kosong!",
-                          icon: "error",
-                          confirmButtonColor: "#31c360",
-                        });
-                      } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-                        Swal.fire({
-                          title: "Format email tidak valid!",
-                          icon: "error",
-                          confirmButtonColor: "#31c360",
-                        });
-                      } else {
-                        Swal.fire({
-                          title: "Email untuk reset kata sandi telah dikirim",
-                          icon: "success",
-                          draggable: true,
-                          confirmButtonColor: "#31c360",
-                        }).then(() => {
-                          setIsOpen(false);
-                        });
-                      }
-                    }}
+                    onClick={() =>
+                      alert("Email untuk reset kata sandi telah dikirim")
+                    }
                     className="w-full bg-green-600 text-white py-3 hover:bg-green-700 transition-all">
                     Kirim Link Reset
                   </button>
-
                   <div className="text-center mt-4">
                     <button
                       onClick={() => setIsForgotPassword(false)}

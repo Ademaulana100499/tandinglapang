@@ -19,11 +19,12 @@ const FlipLink = ({ children, href }) => {
   return (
     <motion.a
       initial="initial"
+      animate="animate"
       whileHover="hovered"
       href={href}
       className="relative block overflow-hidden whitespace-nowrap text-6xl font-black uppercase sm:text-7xl md:text-8xl lg:text-9xl tracking-widest"
       style={{
-        lineHeight: 1.2,
+        lineHeight: 0.999,
       }}>
       <div>
         {children.split("").map((l, i) => (
@@ -31,6 +32,9 @@ const FlipLink = ({ children, href }) => {
             variants={{
               initial: {
                 y: 0,
+              },
+              animate: {
+                y: "-100%",
               },
               hovered: {
                 y: "-100%",
@@ -53,6 +57,9 @@ const FlipLink = ({ children, href }) => {
             variants={{
               initial: {
                 y: "100%",
+              },
+              animate: {
+                y: 0,
               },
               hovered: {
                 y: 0,

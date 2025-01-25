@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { FiUser } from "react-icons/fi";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import useLogin from "@/hooks/useLogin";
 import Swal from "sweetalert2";
@@ -23,11 +23,6 @@ const SpringModal = ({ isOpen, setIsOpen }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const { formData, setFormData, handleFormLogin } = useLogin();
-  useEffect(() => {
-    if (isOpen) {
-      setIsForgotPassword(false);
-    }
-  }, [isOpen]);
 
   return (
     <AnimatePresence>
@@ -133,25 +128,21 @@ const SpringModal = ({ isOpen, setIsOpen }) => {
                     type="button"
                     onClick={() => {
                       if (!formData.email) {
+                        // Jika email kosong, tampilkan peringatan
                         Swal.fire({
                           title: "Email tidak boleh kosong!",
                           icon: "error",
                           confirmButtonColor: "#31c360",
                         });
-                      } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-                        Swal.fire({
-                          title: "Format email tidak valid!",
-                          icon: "error",
-                          confirmButtonColor: "#31c360",
-                        });
                       } else {
+                        // Jika email valid, tampilkan SweetAlert2 dan tutup modal
                         Swal.fire({
                           title: "Email untuk reset kata sandi telah dikirim",
                           icon: "success",
                           draggable: true,
                           confirmButtonColor: "#31c360",
                         }).then(() => {
-                          setIsOpen(false);
+                          setIsOpen(false); // Menutup modal login setelah pesan muncul
                         });
                       }
                     }}

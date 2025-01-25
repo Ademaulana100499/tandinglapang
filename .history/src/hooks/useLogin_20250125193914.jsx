@@ -13,18 +13,18 @@ const useLogin = () => {
 
   const handleFormLogin = async (e) => {
     e.preventDefault();
-    if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      Swal.fire({
-        title: "Format email tidak valid!",
-        icon: "error",
-        confirmButtonColor: "#31c360",
-      });
-      return;
-    } else if (!formData.email || !formData.password) {
+    if (!formData.email || !formData.password) {
       Swal.fire({
         title: "Email & Password tidak boleh Kosong!",
         icon: "error",
         draggable: true,
+        confirmButtonColor: "#31c360",
+      });
+      return;
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      Swal.fire({
+        title: "Format email tidak valid!",
+        icon: "error",
         confirmButtonColor: "#31c360",
       });
       return;

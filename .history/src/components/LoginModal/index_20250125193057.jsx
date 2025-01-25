@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { FiUser } from "react-icons/fi";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import useLogin from "@/hooks/useLogin";
 import Swal from "sweetalert2";
@@ -23,11 +23,6 @@ const SpringModal = ({ isOpen, setIsOpen }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const { formData, setFormData, handleFormLogin } = useLogin();
-  useEffect(() => {
-    if (isOpen) {
-      setIsForgotPassword(false);
-    }
-  }, [isOpen]);
 
   return (
     <AnimatePresence>
