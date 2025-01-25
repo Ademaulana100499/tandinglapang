@@ -34,39 +34,39 @@ const ClipPathLinks = () => {
         </span>
       </p>
 
-      <div className="divide-y divide-neutral-900 border text-black border-neutral-900">
-        <div className="grid grid-cols-2 divide-x  divide-neutral-900">
+      <div className="divide-y divide-neutral-900 border border-neutral-900">
+        <div className="grid grid-cols-2 divide-x divide-neutral-900">
           <LinkBox Icon={GiSoccerBall} href="#">
-            <p className="text-sm mt-2 ">Sepak Bola</p>
+            <p className="text-sm mt-2 text-black">Sepak Bola</p>
           </LinkBox>
           <LinkBox Icon={GiShuttlecock} href="#">
-            <p className="text-sm mt-2">Bulu Tangkis</p>
+            <p className="text-sm mt-2 text-Black">Bulu Tangkis</p>
           </LinkBox>
         </div>
         <div className="grid grid-cols-4 divide-x divide-neutral-900">
           <LinkBox Icon={MdSportsBasketball} href="#">
-            <p className="text-sm mt-2">Basket</p>
+            <p className="text-sm mt-2 text-Black">Basket</p>
           </LinkBox>
 
           <LinkBox Icon={MdOutlineSportsVolleyball} href="#">
-            <p className="text-sm mt-2">Voli</p>
+            <p className="text-sm mt-2 text-Black">Voli</p>
           </LinkBox>
           <LinkBox Icon={MdOutlineSportsTennis} href="#">
-            <p className="text-sm mt-2">Tenis</p>
+            <p className="text-sm mt-2 text-Black">Tenis</p>
           </LinkBox>
           <LinkBox Icon={MdSportsGolf} href="#">
-            <p className="text-sm mt-2">Golf</p>
+            <p className="text-sm mt-2 text-Black">Golf</p>
           </LinkBox>
         </div>
         <div className="grid grid-cols-3 divide-x divide-neutral-900">
           <LinkBox Icon={MdSportsSoccer} href="#">
-            <p className="text-sm mt-2">Futsal</p>
+            <p className="text-sm mt-2 text-Black">Futsal</p>
           </LinkBox>
           <LinkBox Icon={MdOutlineSportsMma} href="#">
-            <p className="text-sm mt-2">Tinju</p>
+            <p className="text-sm mt-2 text-Black">Tinju</p>
           </LinkBox>
           <LinkBox Icon={RiBilliardsFill} href="#">
-            <p className="text-sm mt-2">Billiards</p>
+            <p className="text-sm mt-2 text-Black">Billiards</p>
           </LinkBox>
         </div>
       </div>
