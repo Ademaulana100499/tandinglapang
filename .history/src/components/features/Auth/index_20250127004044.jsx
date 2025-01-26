@@ -1,0 +1,28 @@
+import { getCookie } from "cookies-next";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { LoginModal } from "@/components/LoginModal";
+const Authorization = ({ children }) => {
+  const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const token = getCookie("token");
+
+      if (!token) {
+        setIsLoginOpen(true);
+      } else {
+        setIsAuthenticated(true);
+      }
+    }
+  }, [router]);
+
+  if (isAuthenticated === null)
+    return <LoginModal isOpen={isLoginOpen} setIsOpen={setIsLoginOpen} />;
+
+  return <>{children}</>;
+};
+
+export default Authorization;
