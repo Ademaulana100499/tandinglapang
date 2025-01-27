@@ -9,7 +9,7 @@ const Authorization = ({ children }) => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       try {
-        const token = getCookie("token");
+        const token = getCookie("token"); // Pastikan cookie diakses hanya di client
 
         if (!token) {
           router.push("/unauthorized");

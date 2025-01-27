@@ -8,17 +8,12 @@ const Authorization = ({ children }) => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      try {
-        const token = getCookie("token");
+      const token = getCookie("token");
 
-        if (!token) {
-          router.push("/unauthorized");
-        } else {
-          setIsAuthenticated(true);
-        }
-      } catch (error) {
-        console.error("Error fetching token:", error);
+      if (!token) {
         router.push("/unauthorized");
+      } else {
+        setIsAuthenticated(true);
       }
     }
   }, [router]);
