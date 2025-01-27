@@ -1,9 +1,9 @@
 import React from "react";
-// import { Navbar } from "@/components/layout/Navbar";
-// import { Footer } from "@/components/layout/Footer";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 import axios from "axios";
-// import { useRouter } from "next/router";
-// import SportCategoryDropdown from "@/components/SportCategoryDropdown/SportCategoryDropdown";
+import { useRouter } from "next/router";
+import SportCategoryDropdown from "@/components/SportCategoryDropdown/SportCategoryDropdown";
 import { parseCookies } from "nookies";
 // import Authorization from "@/components/features/Auth";
 const ActivityPage = ({ data, page }) => {
