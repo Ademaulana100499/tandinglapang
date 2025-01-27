@@ -88,26 +88,27 @@ const ActivityPage = ({ data, page }) => {
 export default ActivityPage;
 
 export async function getServerSideProps(context) {
+  const { req, res, query } = context;
+  const token = getCookie("token", { req, res }); // Ambil token dari cookies
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/login", // Redirect jika tidak ada token
+        permanent: false,
+      },
+    };
+  }
   try {
-    const { req, res, query } = context;
-    const token = req.cookies?.token; // Cek apakah token tersedia
-
-    console.log("Token:", token); // Debug token
-
     const { page = 1, sport_category_id, city_id, search } = query;
     const url = `${
       process.env.NEXT_PUBLIC_API_URL
     }/sport-activities?is_paginate=true&per_page=5&page=${page}&sport_category_id=${
       sport_category_id || ""
     }&city_id=${city_id || ""}&search=${search || ""}`;
-
-    console.log("Fetching data from:", url); // Debug URL API
-
     const resApi = await axios.get(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
-
-    console.log("Response from API:", resApi.data); // Debug API response
 
     return {
       props: { data: resApi.data.result.data || [], page: parseInt(page) },
