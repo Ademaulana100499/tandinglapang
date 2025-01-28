@@ -93,16 +93,7 @@ export async function getServerSideProps({ req }) {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/me`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-
-    console.log("API Response Status:", res.status); // Logging status
-
-    if (!res.ok) {
-      throw new Error(`API error: ${res.status} ${res.statusText}`);
-    }
-
     const result = await res.json();
-    console.log("API Response Data:", result); // Logging the data
-
     return { props: { data: result.data || {} } };
   } catch (error) {
     console.error("Error fetching profile:", error);
