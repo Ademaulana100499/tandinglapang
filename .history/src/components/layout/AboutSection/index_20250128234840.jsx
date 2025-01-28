@@ -135,9 +135,9 @@ const AboutBlock = () => (
     <p>
       <span className="text-black  ">Misi kami </span>
       <span className="text-zinc-600">
-        adalah untuk memfasilitasi para atlet dan penggemar olahraga agar dapat
-        menemukan partner sparring yang sesuai untuk meningkatkan keterampilan
-        dan daya saing.
+        adalah membantu komunitas olahraga untuk lebih mudah mengakses lapangan
+        berkualitas, mempererat kebersamaan, serta mendukung gaya hidup sehat
+        melalui olahraga.
       </span>
     </p>
   </Block>

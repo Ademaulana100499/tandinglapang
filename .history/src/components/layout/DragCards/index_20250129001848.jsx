@@ -23,8 +23,8 @@ const Cards = () => {
         src="https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p1/284/2024/11/14/RADENPHOTO-617-970909764.jpg"
         alt="Example image"
         rotate="6deg"
-        top="10%"
-        left="15%"
+        top="20%"
+        left="25%"
         className="w-36 md:w-56"
       />
       <Card
@@ -33,16 +33,16 @@ const Cards = () => {
         alt="biliard"
         rotate="12deg"
         top="45%"
-        left="70%"
+        left="60%"
         className="w-24 md:w-48"
       />
       <Card
         containerRef={containerRef}
-        src="https://iblindonesia.com/uploads/media/wallpaper-c9679ecf-2852-4d33-82ec-41a77b03869c.jpeg"
+        src="https://psikologi.unair.ac.id/wp-content/uploads/2024/12/bso-basket-sparring-2024.jpg"
         alt="basket"
         rotate="-6deg"
         top="20%"
-        left="35%"
+        left="40%"
         className="w-52 md:w-80"
       />
       <Card
@@ -51,7 +51,7 @@ const Cards = () => {
         alt="badminton"
         rotate="8deg"
         top="50%"
-        left="18%"
+        left="40%"
         className="w-48 md:w-72"
       />
       <Card
@@ -59,7 +59,7 @@ const Cards = () => {
         src="https://plus.unsplash.com/premium_photo-1708119178805-321dec8ba9cf?q=80&w=1933&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt="tenis"
         rotate="18deg"
-        top="10%"
+        top="20%"
         left="65%"
         className="w-40 md:w-64"
       />
@@ -70,7 +70,7 @@ const Cards = () => {
         rotate="-3deg"
         top="35%"
         left="55%"
-        className="w-48 md:w-71"
+        className="w-24 md:w-48"
       />
     </div>
   );

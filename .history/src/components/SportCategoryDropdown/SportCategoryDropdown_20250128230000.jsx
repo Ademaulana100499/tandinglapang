@@ -72,20 +72,6 @@ const LocationAndSportCategoryDropdown = () => {
     setSelectedCategory(event.target.value);
   };
 
-  const handleCategoryClick = (categoryId) => {
-    setSelectedCategory(categoryId); // Set the selected category when clicked
-
-    // Update the URL query with the selected category
-    router.push({
-      pathname: "/explore",
-      query: {
-        sport_category_id: categoryId,
-        city_id: selectedLocation ? selectedLocation.value.city_id : "",
-      },
-    });
-  };
-
-  // Update the button click handler to use the same query update logic.
   const handleSearch = () => {
     const query = {
       sport_category_id: selectedCategory || "",

@@ -70,7 +70,7 @@ const Cards = () => {
         rotate="-3deg"
         top="35%"
         left="55%"
-        className="w-48 md:w-71"
+        className="w-24 md:w-48"
       />
     </div>
   );

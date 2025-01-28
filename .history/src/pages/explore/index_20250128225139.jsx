@@ -117,15 +117,14 @@ const ActivityPage = ({ data, page }) => {
                       <div>
                         {" "}
                         <p className="text-3xl font-semibold animate__animated animate__fadeIn animate__delay-1s">
-                          <span className="font-bold text-white">
-                            Lawan sparring
-                          </span>{" "}
+                          <span className="font-bold text-white">lapangan</span>{" "}
                           belum tersedia...
                         </p>
                       </div>
                     </div>
                     <p className="text-lg font-medium text-gray-100">
-                      Coba cari lawan lain atau kembali nanti!
+                      Kami mohon maaf, coba cari lapangan lain atau coba lagi
+                      nanti!
                     </p>
                   </motion.div>
                 </div>

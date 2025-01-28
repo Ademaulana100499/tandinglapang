@@ -35,15 +35,15 @@ export const RegisterModal = ({ isOpen, setIsOpen, role }) => {
               </div>
 
               {formData.role === "admin" && (
-                <h3 className="text-2xl font-bold mb-2">Daftar Akun Admin</h3>
+                <h3 className="text-2xl font-bold mb-2">Daftar Akun Owner</h3>
               )}
               {formData.role === "user" && (
                 <h3 className="text-2xl font-bold mb-2">Daftar Akun User</h3>
               )}
               {formData.role === "admin" && (
                 <p className="text-gray-600 text-sm mb-4">
-                  Daftarkan acara Anda sekarang dan dapatkan anggota dengan
-                  mudah!
+                  Daftarkan lapangan Anda sekarang dan mulai terima pemesanan
+                  dengan mudah!
                 </p>
               )}
               {formData.role === "user" && (

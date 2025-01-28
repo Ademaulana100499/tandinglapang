@@ -20,7 +20,7 @@ const Cards = () => {
     <div id="home" className=" absolute top-0 inset-0 z-10" ref={containerRef}>
       <Card
         containerRef={containerRef}
-        src="https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p1/284/2024/11/14/RADENPHOTO-617-970909764.jpg"
+        src="https://pasmar1.tnial.mil.id/poster/1731569877.jpg"
         alt="Example image"
         rotate="6deg"
         top="10%"
@@ -38,7 +38,7 @@ const Cards = () => {
       />
       <Card
         containerRef={containerRef}
-        src="https://iblindonesia.com/uploads/media/wallpaper-c9679ecf-2852-4d33-82ec-41a77b03869c.jpeg"
+        src="https://psikologi.unair.ac.id/wp-content/uploads/2024/12/bso-basket-sparring-2024.jpg"
         alt="basket"
         rotate="-6deg"
         top="20%"
@@ -70,7 +70,7 @@ const Cards = () => {
         rotate="-3deg"
         top="35%"
         left="55%"
-        className="w-48 md:w-71"
+        className="w-24 md:w-48"
       />
     </div>
   );

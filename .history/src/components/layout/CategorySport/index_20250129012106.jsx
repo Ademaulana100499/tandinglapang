@@ -36,44 +36,36 @@ const ClipPathLinks = () => {
 
       <div className="divide-y divide-neutral-900 border text-black border-neutral-900">
         <div className="grid grid-cols-2 divide-x  divide-neutral-900">
-          <LinkBox Icon={GiSoccerBall} href="/explore?sport_category_id=1">
+          <LinkBox Icon={GiSoccerBall} href="#">
             <p className="text-sm mt-2 ">Sepak Bola</p>
           </LinkBox>
-          <LinkBox Icon={GiShuttlecock} href="/explore?sport_category_id=4">
+          <LinkBox Icon={GiShuttlecock} href="#">
             <p className="text-sm mt-2">Bulu Tangkis</p>
           </LinkBox>
         </div>
         <div className="grid grid-cols-4 divide-x divide-neutral-900">
-          <LinkBox
-            Icon={MdSportsBasketball}
-            href="/explore?sport_category_id=5">
+          <LinkBox Icon={MdSportsBasketball} href="#">
             <p className="text-sm mt-2">Basket</p>
           </LinkBox>
 
-          <LinkBox
-            Icon={MdOutlineSportsVolleyball}
-            href="/explore?sport_category_id=13">
+          <LinkBox Icon={MdOutlineSportsVolleyball} href="#">
             <p className="text-sm mt-2">Voli</p>
           </LinkBox>
-          <LinkBox
-            Icon={MdOutlineSportsTennis}
-            href="/explore?sport_category_id=6">
+          <LinkBox Icon={MdOutlineSportsTennis} href="#">
             <p className="text-sm mt-2">Tenis</p>
           </LinkBox>
-          <LinkBox Icon={MdSportsGolf} href="/explore?sport_category_id=9">
+          <LinkBox Icon={MdSportsGolf} href="#">
             <p className="text-sm mt-2">Golf</p>
           </LinkBox>
         </div>
         <div className="grid grid-cols-3 divide-x divide-neutral-900">
-          <LinkBox Icon={MdSportsSoccer} href="/explore?sport_category_id=2">
+          <LinkBox Icon={MdSportsSoccer} href="#">
             <p className="text-sm mt-2">Futsal</p>
           </LinkBox>
-          <LinkBox
-            Icon={MdOutlineSportsMma}
-            href="/explore?sport_category_id=10">
+          <LinkBox Icon={MdOutlineSportsMma} href="#">
             <p className="text-sm mt-2">Tinju</p>
           </LinkBox>
-          <LinkBox Icon={RiBilliardsFill} href="/explore?sport_category_id=8">
+          <LinkBox Icon={RiBilliardsFill} href="#">
             <p className="text-sm mt-2">Billiards</p>
           </LinkBox>
         </div>
@@ -102,38 +94,30 @@ const EXIT_KEYFRAMES = {
   right: [NO_CLIP, BOTTOM_LEFT_CLIP],
 };
 
-const LinkBox = ({ Icon, href, children }) => {
-  const [scope, animate] = useAnimate();
+const LinkBox = ({ Icon, href, children, categoryId }) => {
+  const router = useRouter();
 
-  const getNearestSide = (e) => {
-    const box = e.target.getBoundingClientRect();
-
-    const proximityToLeft = {
-      proximity: Math.abs(box.left - e.clientX),
-      side: "left",
-    };
-    const proximityToRight = {
-      proximity: Math.abs(box.right - e.clientX),
-      side: "right",
-    };
-    const proximityToTop = {
-      proximity: Math.abs(box.top - e.clientY),
-      side: "top",
-    };
-    const proximityToBottom = {
-      proximity: Math.abs(box.bottom - e.clientY),
-      side: "bottom",
-    };
-
-    const sortedProximity = [
-      proximityToLeft,
-      proximityToRight,
-      proximityToTop,
-      proximityToBottom,
-    ].sort((a, b) => a.proximity - b.proximity);
-
-    return sortedProximity[0].side;
+  const handleCategoryClick = () => {
+    router.push({
+      pathname: "/explore", // Ganti dengan path yang sesuai untuk pencarian
+      query: {
+        sport_category_id: categoryId,
+        city_id: router.query.city_id || "", // Menambahkan filter berdasarkan lokasi yang dipilih jika ada
+      },
+    });
   };
+
+  return (
+    <a
+      href="#"
+      onClick={handleCategoryClick}
+      className="relative flex flex-col items-center justify-center h-20 w-full sm:h-28 md:h-36"
+    >
+      <Icon className="text-xl sm:text-3xl lg:text-4xl" />
+      <span>{children}</span>
+    </a>
+  );
+};
 
   const handleMouseEnter = (e) => {
     const side = getNearestSide(e);

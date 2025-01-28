@@ -42,7 +42,7 @@ export const RegisterModal = ({ isOpen, setIsOpen, role }) => {
               )}
               {formData.role === "admin" && (
                 <p className="text-gray-600 text-sm mb-4">
-                  Daftarkan acara Anda sekarang dan dapatkan anggota dengan
+                  Daftarkan acara Anda sekarang dan mulai terima anggota dengan
                   mudah!
                 </p>
               )}

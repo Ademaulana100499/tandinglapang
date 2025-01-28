@@ -72,20 +72,6 @@ const LocationAndSportCategoryDropdown = () => {
     setSelectedCategory(event.target.value);
   };
 
-  const handleCategoryClick = (categoryId) => {
-    setSelectedCategory(categoryId); // Set the selected category when clicked
-
-    // Update the URL query with the selected category
-    router.push({
-      pathname: "/explore",
-      query: {
-        sport_category_id: categoryId,
-        city_id: selectedLocation ? selectedLocation.value.city_id : "",
-      },
-    });
-  };
-
-  // Update the button click handler to use the same query update logic.
   const handleSearch = () => {
     const query = {
       sport_category_id: selectedCategory || "",
@@ -115,7 +101,7 @@ const LocationAndSportCategoryDropdown = () => {
                 label: city.city_name_full,
               })),
             }))}
-            placeholder="Pilih Kota"
+            placeholder="Cari Kota Anda"
             className="w-full p-1 border border-green-300 rounded-sm focus:ring-2 focus:ring-green-500 transition duration-200"
             styles={{
               menu: (provided) => ({
