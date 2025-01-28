@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: "Contrail One", sans-serif;
+}
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+.custom-shadow {
+  @apply shadow-inner;
+  box-shadow: inset 0px 6px 12px rgba(82, 82, 82, 0.4),
+    inset 0px -6px 12px rgba(0, 0, 0, 0.4);
+}
