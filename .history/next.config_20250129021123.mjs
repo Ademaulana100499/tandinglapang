@@ -5,7 +5,7 @@ const nextConfig = {
     domains: ["dibimbing-cdn.sgp1.cdn.digitaloceanspaces.com"],
   },
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: true, // Menonaktifkan ESLint selama build di Vercel
   },
 };
 
