@@ -5,11 +5,9 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <meta charSet="utf-8" />
-        <meta
-          name="description"
-          content="Platform terbaik untuk sparring olahraga dengan mudah dan cepat."
-        />
+        <title>SewaLapang - Sewa Lapangan Mudah & Cepat</title>
         <link rel="icon" href="/logo.png" />
+
         <link
           rel="preconnect"
           href="https://fonts.googleapis.com"

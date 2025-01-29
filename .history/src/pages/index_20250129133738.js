@@ -4,14 +4,18 @@ import { Footer } from "@/components/layout/Footer";
 import { RevealLinks } from "@/components/layout/HeroSection";
 import { DragCards } from "@/components/layout/DragCards";
 import { CategorySport } from "@/components/layout/CategorySport";
-// import { AdminSection } from "@/components/layout/AdminSection";
+import { AdminSection } from "@/components/layout/AdminSection";
 import { AboutSection } from "@/components/layout/AboutSection";
 
 export default function Home() {
   return (
-    <>
+    <div>
       <Head>
-        <title>SewaLapang</title>
+        <title>SewaLapang - Sewa Lapangan Mudah & Cepat</title>
+        <meta
+          name="description"
+          content="Platform terbaik untuk sparring olahraga dengan mudah dan cepat."
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div className="font-contrail-one">
@@ -19,10 +23,10 @@ export default function Home() {
         <DragCards />
         <RevealLinks />
         <CategorySport />
-        {/* <AdminSection /> */}
+        <AdminSection />
         <AboutSection />
         <Footer />
       </div>
-    </>
+    </div>
   );
 }

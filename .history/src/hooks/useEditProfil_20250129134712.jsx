@@ -1,31 +1,31 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { getCookie } from "cookies-next"; // Pastikan getCookie sudah benar
+import { useRouter } from "next/router";
 
-const useRegister = (setIsOpen) => {
+const useEditProfil = (setIsOpen, userId) => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
     name: "",
     password: "",
     c_password: "",
-    role: "",
+    phone_number: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  const handleFormRegister = async (e) => {
+  const id = userId;
+
+  const handleFormEditProfil = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    if (!formData.email && !formData.password && !formData.name) {
-      Swal.fire({
-        title: "Data Masih Kosong!",
-        icon: "error",
-        confirmButtonColor: "#31c360",
-      });
-      setIsLoading(false);
-      return;
-    } else if (formData.name.length < 3) {
+
+    // Validasi input
+    if (formData.name.length < 3) {
       Swal.fire({
         title: "Nama minimal 3 karakter!",
         icon: "error",
+
         confirmButtonColor: "#31c360",
       });
       setIsLoading(false);
@@ -34,6 +34,7 @@ const useRegister = (setIsOpen) => {
       Swal.fire({
         title: "Nama maksimal 50 karakter!",
         icon: "error",
+
         confirmButtonColor: "#31c360",
       });
       setIsLoading(false);
@@ -42,6 +43,7 @@ const useRegister = (setIsOpen) => {
       Swal.fire({
         title: "Email tidak boleh Kosong!",
         icon: "error",
+
         confirmButtonColor: "#31c360",
       });
       setIsLoading(false);
@@ -50,22 +52,7 @@ const useRegister = (setIsOpen) => {
       Swal.fire({
         title: "Format email tidak valid!",
         icon: "error",
-        confirmButtonColor: "#31c360",
-      });
-      setIsLoading(false);
-      return;
-    } else if (!formData.password) {
-      Swal.fire({
-        title: "Password tidak boleh Kosong!",
-        icon: "error",
-        confirmButtonColor: "#31c360",
-      });
-      setIsLoading(false);
-      return;
-    } else if (formData.password.length < 8) {
-      Swal.fire({
-        title: "Password minimal 8 karakter!",
-        icon: "error",
+
         confirmButtonColor: "#31c360",
       });
       setIsLoading(false);
@@ -74,44 +61,51 @@ const useRegister = (setIsOpen) => {
       Swal.fire({
         title: "Password dan Konfirmasi Password tidak sama!",
         icon: "error",
+
         confirmButtonColor: "#31c360",
       });
       setIsLoading(false);
       return;
     }
+    console.log("data yang di kirim", formData);
     try {
-      const res = await axios.post("/api/authentication/ssrregist", formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      // Pastikan URL sudah sesuai
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/update-user/${id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getCookie("token")}`, // Pastikan token valid
+          },
+        }
+      );
 
       Swal.fire({
-        title: "Registrasi berhasil silahkan masuk!",
+        title: "Profil Berhasil Diubah!",
         icon: "success",
+
         confirmButtonColor: "#31c360",
       });
-      setTimeout(() => {
-        setIsOpen(false);
-        formData.email = "";
-        formData.name = "";
-        formData.password = "";
-        formData.c_password = "";
-      }, 2000);
-    } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || "Registration failed";
-      const validationErrors = error.response?.data?.error?.data;
 
-      let errorText = errorMessage;
-      if (validationErrors) {
-        errorText += `\n\n${Object.entries(validationErrors)
-          .map(([key, messages]) => `${key}: ${messages.join(", ")}`)
-          .join("\n")}`;
-      }
+      // Reset form data setelah berhasil update
+      setTimeout(() => {
+        setIsOpen(false); // Menutup modal
+        setFormData({
+          email: "",
+          name: "",
+          password: "",
+          c_password: "",
+          phone_number: "",
+        });
+      }, 2000);
+      router.push("/profile");
+    } catch (error) {
+      console.log(error);
       Swal.fire({
-        title: errorText,
+        title: "Terjadi kesalahan saat mengubah profil!",
         icon: "error",
+
         confirmButtonColor: "#31c360",
       });
     } finally {
@@ -119,7 +113,7 @@ const useRegister = (setIsOpen) => {
     }
   };
 
-  return { handleFormRegister, setFormData, formData, isLoading };
+  return { handleFormEditProfil, setFormData, formData, isLoading };
 };
 
-export default useRegister;
+export default useEditProfil;

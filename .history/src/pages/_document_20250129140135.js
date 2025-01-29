@@ -5,11 +5,13 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <meta charSet="utf-8" />
+        <title>SewaLapang</title>
+        <link rel="icon" href="/logo.png" />
         <meta
           name="description"
           content="Platform terbaik untuk sparring olahraga dengan mudah dan cepat."
         />
-        <link rel="icon" href="/logo.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link
           rel="preconnect"
           href="https://fonts.googleapis.com"
@@ -25,6 +27,7 @@ export default function Document() {
           rel="stylesheet"
         />
       </Head>
+
       <body className="antialiased">
         <Main />
         <NextScript />

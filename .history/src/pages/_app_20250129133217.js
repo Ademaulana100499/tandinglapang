@@ -5,19 +5,15 @@ import Head from "next/head";
 
 export default function App({ Component, pageProps }) {
   return (
-    <>
+    <div>
       <Head>
-        <meta charSet="utf-8" />
-        <meta
-          name="description"
-          content="Platform terbaik untuk sparring olahraga dengan mudah dan cepat."
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.png" />
       </Head>
       <HeroUIProvider>
         <PagesTopLoader showSpinner={false} color="green" />
         <Component {...pageProps} />
       </HeroUIProvider>
-    </>
+    </div>
   );
 }

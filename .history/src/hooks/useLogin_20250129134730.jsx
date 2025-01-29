@@ -23,6 +23,7 @@ const useLogin = (setIsOpen) => {
       Swal.fire({
         title: "Email & Password tidak boleh Kosong!",
         icon: "error",
+
         confirmButtonColor: "#31c360",
       });
       setIsLoading(false);
@@ -31,6 +32,7 @@ const useLogin = (setIsOpen) => {
       Swal.fire({
         title: "Password tidak boleh Kosong!",
         icon: "error",
+
         confirmButtonColor: "#31c360",
       });
       setIsLoading(false);
@@ -39,6 +41,7 @@ const useLogin = (setIsOpen) => {
       Swal.fire({
         title: "Email  tidak boleh Kosong!",
         icon: "error",
+
         confirmButtonColor: "#31c360",
       });
       setIsLoading(false);
@@ -63,6 +66,7 @@ const useLogin = (setIsOpen) => {
       Swal.fire({
         title: res.data.message,
         icon: "success",
+
         confirmButtonColor: "#31c360",
       });
       setFormData({ email: "", password: "" });
@@ -74,12 +78,14 @@ const useLogin = (setIsOpen) => {
         Swal.fire({
           title: "Email atau Password Salah",
           icon: "error",
+
           confirmButtonColor: "#31c360",
         });
       } else {
         Swal.fire({
           title: "Terjadi kesalahan. Coba lagi nanti.",
           icon: "error",
+
           confirmButtonColor: "#31c360",
         });
       }
