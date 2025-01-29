@@ -55,7 +55,7 @@ export const ForgotPasswordModal = ({ isOpen, setIsOpen }) => {
                 Masukkan email Anda untuk reset kata sandi.
               </p>
 
-              <form className="w-full" onSubmit={(e) => e.preventDefault()}>
+              <form className="w-full">
                 <input
                   type="email"
                   placeholder="Email"
@@ -66,7 +66,7 @@ export const ForgotPasswordModal = ({ isOpen, setIsOpen }) => {
                   className="w-full p-3 rounded border border-gray-300 focus:ring-2 focus:ring-green-500 mb-4"
                 />
                 <button
-                  type="submit"
+                  type="button"
                   onClick={handleSubmit}
                   className="w-full bg-green-600 text-white py-3 hover:bg-green-700 transition-all">
                   Kirim Link Reset

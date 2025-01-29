@@ -63,7 +63,7 @@ export const LoginModal = ({ isOpen, setIsOpen }) => {
                         setFormData({ ...formData, password: e.target.value })
                       }
                       placeholder="Kata Sandi"
-                      className="w-full p-3 rounded border border-gray-300 focus:ring-2 mb-4  focus:ring-green-500"
+                      className="w-full p-3 rounded border border-gray-300 focus:ring-2 focus:ring-green-500"
                     />
                     <button
                       type="button"
@@ -86,7 +86,17 @@ export const LoginModal = ({ isOpen, setIsOpen }) => {
                       )}
                     </button>
                   </div>
-
+                  <div className="w-full flex justify-end ">
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setIsOpen(false);
+                        setIsForgotPasswordOpen(true);
+                      }}
+                      className="text-green-600 mb-3 mt-2 text-sm hover:underline">
+                      Lupa Kata Sandi?
+                    </button>
+                  </div>
                   <button
                     type="submit"
                     className="w-full bg-green-600 text-white flex items-center justify-center py-3 hover:bg-green-700 transition-all">
@@ -99,17 +109,6 @@ export const LoginModal = ({ isOpen, setIsOpen }) => {
                     )}
                   </button>
                 </form>
-                <div className="w-full flex justify-end ">
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setIsOpen(false);
-                      setIsForgotPasswordOpen(true);
-                    }}
-                    className="text-green-600 mt-2 text-sm hover:underline">
-                    Lupa Kata Sandi?
-                  </button>
-                </div>
                 <div className=" mt-4 text-sm">
                   <p>
                     Belum Punya Akun?

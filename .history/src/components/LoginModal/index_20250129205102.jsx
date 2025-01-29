@@ -63,7 +63,7 @@ export const LoginModal = ({ isOpen, setIsOpen }) => {
                         setFormData({ ...formData, password: e.target.value })
                       }
                       placeholder="Kata Sandi"
-                      className="w-full p-3 rounded border border-gray-300 focus:ring-2 mb-4  focus:ring-green-500"
+                      className="w-full p-3 rounded border border-gray-300 focus:ring-2 mb-3  focus:ring-green-500"
                     />
                     <button
                       type="button"
