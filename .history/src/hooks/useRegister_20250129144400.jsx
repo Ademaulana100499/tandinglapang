@@ -1,9 +1,8 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { useRouter } from "next/router";
+
 const useRegister = (setIsOpen) => {
-  const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
     name: "",

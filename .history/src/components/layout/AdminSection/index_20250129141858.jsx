@@ -1,24 +1,24 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { RegisterModal } from "@/components/RegisterModal";
-
 export const AdminSection = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [role, setRole] = useState("");
 
   const openModalWithRole = (selectedRole) => {
     setRole(selectedRole);
-    setIsRegisterOpen(true);
+    setIsOpen(true);
   };
 
   return (
     <div className="bg-black">
-      <section className="w-full px-8 py-10 lg:py-24 sm:py-10 md:py-16 grid grid-cols-1 md:grid-cols-2 items-center gap-8 max-w-6xl mx-auto">
+      <section className="w-full  px-8 py-10 lg:py-24 sm:py-10 md:py-16  grid grid-cols-1 md:grid-cols-2 items-center gap-8 max-w-6xl mx-auto">
         <div>
           <span className="block mb-4 text-xs md:text-sm text-green-400 font-medium">
             Bergabunglah bersama kami
           </span>
-          <h3 className="text-4xl md:text-6xl text-white font-semibold">
+          <h3 className="text-4xl md:text-6xl  text-white font-semibold">
             Buat Acara Anda Sekarang
           </h3>
           <p className="text-base md:text-lg text-white my-4 md:my-6">
@@ -26,7 +26,11 @@ export const AdminSection = () => {
             dan menghubungkannya dengan para peserta.
           </p>
           <button
-            onClick={() => openModalWithRole("admin")}
+            onClick={() => {
+              openModalWithRole("admin");
+              setIsOpen(true);
+              setIsRegisterOpen(true);
+            }}
             className="bg-green-500 text-white font-medium py-2 px-4 rounded transition-all hover:bg-green-700 active:scale-95">
             Daftar Sebagai Penyedia Acara
           </button>
@@ -46,7 +50,7 @@ const shuffle = (array) => {
   let currentIndex = array.length,
     randomIndex;
 
-  while (currentIndex !== 0) {
+  while (currentIndex != 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
@@ -136,7 +140,6 @@ const generateSquares = () => {
       style={{
         backgroundImage: `url(${sq.src})`,
         backgroundSize: "cover",
-        backgroundPosition: "center",
       }}></motion.div>
   ));
 };
@@ -159,7 +162,7 @@ const ShuffleGrid = () => {
 
   return (
     <div className="grid grid-cols-4 grid-rows-4 h-[450px] gap-1">
-      {squares}
+      {squares.map((sq) => sq)}
     </div>
   );
 };
