@@ -3,11 +3,19 @@ import { motion } from "framer-motion";
 
 export const RevealLinks = () => {
   return (
-    <section className="grid place-content-center gap-3 bg-green-400  py-16 text-black">
-      <FlipLink>Tantang </FlipLink>
-      <FlipLink>Lawan</FlipLink>
-      <FlipLink>Tingkatkan</FlipLink>
-      <FlipLink>Kemampuan</FlipLink>
+    <section className="grid place-content-center gap-4 bg-green-400 px-8 py-16 text-black sm:px-4 sm:py-8 md:px-6 md:py-12 lg:px-8 lg:py-16">
+      <FlipLink className="text-center text-lg sm:text-base md:text-xl lg:text-2xl">
+        Tantang
+      </FlipLink>
+      <FlipLink className="text-center text-lg sm:text-base md:text-xl lg:text-2xl">
+        Lawan
+      </FlipLink>
+      <FlipLink className="text-center text-lg sm:text-base md:text-xl lg:text-2xl">
+        Tingkatkan
+      </FlipLink>
+      <FlipLink className="text-center text-lg sm:text-base md:text-xl lg:text-2xl">
+        Kemampuan
+      </FlipLink>
     </section>
   );
 };

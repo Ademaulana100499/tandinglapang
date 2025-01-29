@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export const RevealLinks = () => {
   return (
-    <section className="grid place-content-center gap-3 bg-green-400  py-16 text-black">
+    <section className="grid place-content-center gap-3 bg-green-400 px-4 py-16 text-black">
       <FlipLink>Tantang </FlipLink>
       <FlipLink>Lawan</FlipLink>
       <FlipLink>Tingkatkan</FlipLink>

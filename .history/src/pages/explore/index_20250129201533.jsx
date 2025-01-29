@@ -60,9 +60,9 @@ const ActivityPage = ({ data, page }) => {
     <div>
       <Authorization>
         <Navbar />
-        <div id="explore " className="h-full   bg-green-500 ">
+        <div id="explore " className="h-full w-full  bg-green-500 ">
           <section className="p-8   ">
-            <div className="text-center mb-6 p-4 bg-gradient-to-r from-green-500 to-green-700 -mx-8 ">
+            <div className="text-center  mb-6 p-1 md:p-4 sm:p-1 bg-gradient-to-r from-green-500 to-green-700">
               <h2 className="text-2xl sm:text-4xl font-extrabold text-black flex justify-center items-center gap-2 sm:gap-3">
                 <GiSoccerBall className="text-white text-4xl sm:text-5xl animate-bounce" />
                 Cari Lawan Sparring Terbaikmu!

@@ -61,8 +61,8 @@ const ActivityPage = ({ data, page }) => {
       <Authorization>
         <Navbar />
         <div id="explore " className="h-full   bg-green-500 ">
-          <section className="p-8   ">
-            <div className="text-center mb-6 p-4 bg-gradient-to-r from-green-500 to-green-700 -mx-8 ">
+          <section className="py-8   ">
+            <div className="text-center w-full mb-6 p-4  bg-gradient-to-r from-green-500 to-green-700">
               <h2 className="text-2xl sm:text-4xl font-extrabold text-black flex justify-center items-center gap-2 sm:gap-3">
                 <GiSoccerBall className="text-white text-4xl sm:text-5xl animate-bounce" />
                 Cari Lawan Sparring Terbaikmu!
@@ -78,7 +78,7 @@ const ActivityPage = ({ data, page }) => {
               </p>
             </div>
 
-            <div className="mb-16">
+            <div className="mb-16 px-8">
               <SportCategoryDropdown />
             </div>
 
@@ -131,7 +131,7 @@ const ActivityPage = ({ data, page }) => {
                 </div>
               )}
             </div>
-            <div className="mt-10 mb-10">
+            <div className="mt-10 mb-10 px-8">
               {data.length > 0 && (
                 <div className="flex justify-center mt-4">
                   <button

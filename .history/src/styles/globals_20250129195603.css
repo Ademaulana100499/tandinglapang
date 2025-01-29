@@ -21,9 +21,5 @@ body {
 }
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 60px;
-}
-
-#home {
-  scroll-margin-top: 60px;
+  scroll-padding-top: 40px;
 }

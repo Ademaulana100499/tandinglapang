@@ -23,7 +23,7 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 60px;
 }
-
+/* globals.css */
 #home {
   scroll-margin-top: 60px;
 }
