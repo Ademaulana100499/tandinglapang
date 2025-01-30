@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Select from "react-select";
 import { useRouter } from "next/router";
-
-const LocationAndSportCategoryDropdown = () => {
+import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
+import SportDropdown from "../SportCategory";
+export const LocationAndSportCategoryDropdown = () => {
   const router = useRouter();
   const [provinces, setProvinces] = useState([]);
-  const [categories, setCategories] = useState([]);
+
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
 
@@ -49,40 +50,8 @@ const LocationAndSportCategoryDropdown = () => {
     fetchProvincesAndCities();
   }, []);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/sport-categories`
-        );
-        setCategories(response.data.result.data || []);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-        setCategories([]);
-      }
-    };
-    fetchCategories();
-  }, []);
-
   const handleLocationChange = (selectedOption) => {
     setSelectedLocation(selectedOption);
-  };
-
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
-  };
-
-  const handleCategoryClick = (categoryId) => {
-    setSelectedCategory(categoryId); // Set the selected category when clicked
-
-    // Update the URL query with the selected category
-    router.push({
-      pathname: "/explore",
-      query: {
-        sport_category_id: categoryId,
-        city_id: selectedLocation ? selectedLocation.value.city_id : "",
-      },
-    });
   };
 
   // Update the button click handler to use the same query update logic.
@@ -116,45 +85,49 @@ const LocationAndSportCategoryDropdown = () => {
               })),
             }))}
             placeholder="Pilih Kota"
-            className="w-full p-1 border border-green-300 rounded-sm focus:ring-2 focus:ring-green-500 transition duration-200"
+            className="w-full p-2 border border-green-300 rounded-sm focus:ring-2 focus:ring-green-500 focus:outline-none text-black font-medium"
             styles={{
               menu: (provided) => ({
                 ...provided,
                 maxHeight: "200px",
-                overflow: "hidden",
+                overflow: "auto", // Ganti "hidden" dengan "auto" agar daftar tetap scrollable
               }),
               control: (provided) => ({
                 ...provided,
                 minHeight: "40px",
+                padding: "0.5rem", // Menambahkan padding untuk tampilan lebih rapi
+                borderColor: "#D1D5DB", // Warna border lebih netral
+                boxShadow: "none", // Menghilangkan shadow jika ingin tampilan lebih flat
+                backgroundColor: "#ffffff", // Warna background putih
+              }),
+              singleValue: (provided) => ({
+                ...provided,
+                color: "black", // Pastikan teks di dalam pilihan tetap hitam
+              }),
+              indicatorSeparator: () => ({
+                display: "none", // Menghilangkan pemisah indikator
+              }),
+              dropdownIndicator: (provided) => ({
+                ...provided,
+                color: "#4CAF50", // Warna ikon dropdown hijau untuk kesesuaian dengan border
+              }),
+              clearIndicator: (provided) => ({
+                ...provided,
+                color: "#4CAF50", // Warna ikon clear button hijau
               }),
             }}
           />
         </div>
 
-        <div className=" min-w-30 border  p-1 border-green-300  rounded-sm focus:ring-2 focus:ring-green-500 transition duration-200">
-          <select
-            value={selectedCategory}
-            onChange={handleCategoryChange}
-            className="w-full border p-2 border-green-300 rounded-sm">
-            <option value="">Pilih Olahraga</option>
-            {categories.length > 0 &&
-              categories.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
-          </select>
-        </div>
+        <SportDropdown setSelectedCategory={setSelectedCategory} />
         <div className="w-40 ">
-          <button
+          <InteractiveHoverButton
             onClick={handleSearch}
-            className="w-full px-4  py-2 bg-black text-white rounded-lg hover:bg-green-600  transition duration-300">
+            className=" bg-white py-2 text-black hover:border-black rounded-md">
             Cari Lawan
-          </button>
+          </InteractiveHoverButton>
         </div>
       </div>
     </div>
   );
 };
-
-export default LocationAndSportCategoryDropdown;
