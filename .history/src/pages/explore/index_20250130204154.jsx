@@ -63,7 +63,7 @@ const ActivityPage = ({ data, page }) => {
     <div>
       <Authorization>
         <Navbar />
-        <WarpBackground className="bg-green-500 min-h-screen p-2">
+        <WarpBackground className="bg-green-500  p-2">
           <section id="explore ">
             <div className="text-center mb-6 p-4 bg-transparent bg-opacity-50 ">
               <h2 className="uppercase sm:text-4xl text-3xl font-extrabold text-black flex justify-center items-center gap-2 sm:gap-3 ">
