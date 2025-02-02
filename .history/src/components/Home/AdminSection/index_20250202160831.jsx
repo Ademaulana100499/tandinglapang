@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { RegisterModal } from "@/components/Authentication/RegisterModal";
-import { ShuffleGrid } from "./components/ShuffleGrid";
+import ShuffleGrid from "./ShuffleGrid";
 
 export const AdminSection = () => {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);

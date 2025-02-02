@@ -1,4 +1,5 @@
 import React from "react";
+import { useAnimate } from "framer-motion";
 import ClipPathLinks from "./components/ClipPathLinks";
 
 export const CategorySection = () => {

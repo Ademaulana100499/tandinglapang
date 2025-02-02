@@ -1,4 +1,4 @@
-import React from "react";
+import Reactfrom "react";
 import { Cards } from "./components/Cards";
 export const HeroSection1 = () => {
   return (

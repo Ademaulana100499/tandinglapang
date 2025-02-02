@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useRef, useState } from "react";
+
 import { Cards } from "./components/Cards";
 export const HeroSection1 = () => {
   return (
