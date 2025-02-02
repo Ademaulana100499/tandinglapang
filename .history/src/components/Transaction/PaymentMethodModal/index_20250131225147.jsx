@@ -1,8 +1,29 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { usePaymentMethods } from "@/hooks/usePaymentMethods";
+import { useState, useEffect } from "react";
 
 export const PaymentMethodModal = ({ isOpen, setIsOpen, onSelect }) => {
-  const { paymentMethods, loading, error } = usePaymentMethods(isOpen);
+  const [paymentMethods, setPaymentMethods] = useState([]);
+
+  useEffect(() => {
+    const fetchPaymentMethods = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/payment-methods`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch payment methods");
+        }
+        const data = await response.json();
+        setPaymentMethods(data.result || []);
+      } catch (error) {
+        console.error("Error fetching payment methods:", error);
+      }
+    };
+
+    if (isOpen) {
+      fetchPaymentMethods();
+    }
+  }, [isOpen]);
 
   return (
     <AnimatePresence>
@@ -24,11 +45,7 @@ export const PaymentMethodModal = ({ isOpen, setIsOpen, onSelect }) => {
                 Pilih Metode Pembayaran
               </h3>
               <div className="w-full text-left">
-                {loading ? (
-                  <p className="text-gray-500 text-center">Memuat...</p>
-                ) : error ? (
-                  <p className="text-red-500 text-center">{error}</p>
-                ) : paymentMethods.length > 0 ? (
+                {paymentMethods.length > 0 ? (
                   paymentMethods.map((method) => (
                     <button
                       key={method.id}

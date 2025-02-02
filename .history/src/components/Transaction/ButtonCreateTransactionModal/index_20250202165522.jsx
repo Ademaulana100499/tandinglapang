@@ -1,17 +1,89 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { PaymentMethodModal } from "../PaymentMethodModal";
-import { useTransaction } from "@/hooks/useTransaction";
+import { useState } from "react";
+import { getCookie } from "cookies-next";
+import Swal from "sweetalert2";
+import { useRouter } from "next/router";
 
 export const CreateTransactionModal = ({ isOpen, setIsOpen, activityData }) => {
-  const {
-    isPaymentModalOpen,
-    setIsPaymentModalOpen,
-    selectedPayment,
-    handleCreateTransaction,
-    handleSelectPayment,
-    serviceFee,
-    totalAmount,
-  } = useTransaction({ activityData, setIsOpen });
+  const [isPaymentMethodOpen, setIsPaymentMethodOpen] = useState(false);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
+  const paymentMethodFees = { 1: 4000, 2: 3000, 3: 4000, 4: 5000 };
+  const router = useRouter();
+
+  const handlePayment = async () => {
+    if (!selectedPaymentMethod) {
+      Swal.fire({
+        title: "Metode pembayaran belum dipilih!",
+        icon: "error",
+        confirmButtonColor: "#31c360",
+      });
+      return;
+    }
+
+    const confirmResult = await Swal.fire({
+      title: "Lanjut Ke Pembayaran",
+      text: "Apakah Kamu yakin untuk melakukan pembayaran ini?",
+      showCancelButton: true,
+      confirmButtonColor: "#31c360",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, Lanjutkan!",
+      cancelButtonText: "Batal",
+    });
+
+    if (!confirmResult.isConfirmed) {
+      return;
+    }
+
+    const token = getCookie("token");
+    const payload = {
+      sport_activity_id: activityData?.id,
+      payment_method_id: selectedPaymentMethod.id,
+    };
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/transaction/create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error("Gagal melakukan transaksi");
+      }
+
+      Swal.fire({
+        title: "Transaksi berhasil!",
+        icon: "success",
+        confirmButtonColor: "#31c360",
+      });
+      router.push(`/my-transaction/${result.result.id}`);
+      setIsOpen(false);
+    } catch (error) {
+      Swal.fire({
+        title: "Error",
+        text: error.message,
+        icon: "error",
+        confirmButtonColor: "#d33",
+      });
+      console.error("Error:", error);
+    }
+  };
+
+  const handlePaymentMethodSelect = (method) => {
+    setSelectedPaymentMethod({ id: method.id, image_url: method.image_url });
+    setIsPaymentMethodOpen(false);
+  };
+
+  const serviceFee = paymentMethodFees[selectedPaymentMethod?.id] || 0;
+  const totalCost = (activityData?.price || 0) + serviceFee;
 
   return (
     <>
@@ -30,7 +102,7 @@ export const CreateTransactionModal = ({ isOpen, setIsOpen, activityData }) => {
               onClick={(e) => e.stopPropagation()}
               className="bg-white p-6 shadow-xl w-full max-w-md text-gray-800 relative rounded-lg">
               <div className="flex flex-col items-center text-center">
-                <h3 className="text-2xl font-bold mb-4">Detail Transaksi</h3>
+                <h3 className="text-2xl font-bold mb-4">Rincian Biaya</h3>
                 <div className="w-full text-left space-y-4">
                   <div>
                     <h4 className="font-semibold text-lg">
@@ -48,7 +120,7 @@ export const CreateTransactionModal = ({ isOpen, setIsOpen, activityData }) => {
                   </div>
                   <div className="border-t border-b py-2 space-y-2">
                     <div className="flex justify-between">
-                      <span>Biaya Pendaftaran</span>
+                      <span>Pendaftaran</span>
                       <span className="font-bold">
                         Rp. {activityData?.price || 0}
                       </span>
@@ -60,11 +132,11 @@ export const CreateTransactionModal = ({ isOpen, setIsOpen, activityData }) => {
                     <div className="flex justify-between">
                       <span>Metode Pembayaran</span>
                       <span className="font-bold">
-                        {selectedPayment ? (
+                        {selectedPaymentMethod ? (
                           <div className="flex items-center">
                             <img
-                              src={selectedPayment.image_url}
-                              alt="Metode Pembayaran"
+                              src={selectedPaymentMethod.image_url}
+                              alt="Payment Method"
                               className="w-8 h-8 mr-2"
                             />
                           </div>
@@ -77,19 +149,19 @@ export const CreateTransactionModal = ({ isOpen, setIsOpen, activityData }) => {
                   <div className="flex justify-between border-t pt-2 mt-4">
                     <span className="font-bold">Total</span>
                     <span className="font-bold text-green-600">
-                      Rp. {totalAmount}
+                      Rp. {totalCost}
                     </span>
                   </div>
                 </div>
                 <button
-                  onClick={() => setIsPaymentModalOpen(true)}
+                  onClick={() => setIsPaymentMethodOpen(true)}
                   className="text-green-600 mt-2 text-sm hover:underline">
                   Pilih Metode Pembayaran
                 </button>
                 <button
-                  onClick={handleCreateTransaction}
+                  onClick={handlePayment}
                   className="w-full mt-6 py-3 transition-all bg-green-600 text-white hover:bg-green-700">
-                  Buat Transaksi
+                  Lanjut Pembayaran
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
@@ -102,9 +174,9 @@ export const CreateTransactionModal = ({ isOpen, setIsOpen, activityData }) => {
         )}
       </AnimatePresence>
       <PaymentMethodModal
-        isOpen={isPaymentModalOpen}
-        setIsOpen={setIsPaymentModalOpen}
-        onSelect={handleSelectPayment}
+        isOpen={isPaymentMethodOpen}
+        setIsOpen={setIsPaymentMethodOpen}
+        onSelect={handlePaymentMethodSelect}
       />
     </>
   );

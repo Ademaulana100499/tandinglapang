@@ -121,26 +121,6 @@ export const EditProfileModal = ({ isOpen, setIsOpen, data }) => {
                     placeholder="Konfirmasi Password"
                     className="w-full p-3 rounded border border-gray-300 focus:ring-2 focus:ring-green-500"
                   />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-3 text-gray-500 hover:text-gray-700">
-                    {showPassword ? (
-                      <Image
-                        src="/close.png"
-                        width={28}
-                        height={28}
-                        alt="close"
-                      />
-                    ) : (
-                      <Image
-                        src="/open.png"
-                        width={28}
-                        height={28}
-                        alt="open"
-                      />
-                    )}
-                  </button>
                 </div>
                 <button
                   type="submit"

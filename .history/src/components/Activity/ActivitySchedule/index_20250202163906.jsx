@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { CreateTransactionModal } from "@/components/Transaction/CreateTransactionModal";
+import { CostBreakdownModal } from "../../Transaction/CreateTransactionModal";
 import { iconMap } from "../../../utils/imageIconData";
 export const ActivitySchedule = ({ activityData }) => {
   const [descriptionContent, setDescriptionContent] = useState("");
@@ -80,7 +80,7 @@ export const ActivitySchedule = ({ activityData }) => {
         className="mt-4 w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-100">
         Gabung Sekarang
       </button>
-      <CreateTransactionModal
+      <CostBreakdownModal
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
         activityData={activityData}

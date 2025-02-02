@@ -3,10 +3,10 @@ import axios from "axios";
 import { Navbar } from "@/components/Features/Navbar";
 import { Footer } from "@/components/Features/Footer";
 import Image from "next/image";
-import { CancelTransaction } from "@/components/Transaction/ButtonCancelTransaction";
+import { CancelTransaction } from "@/components/Transaction/CancelTransaction";
 import { UploadPayment } from "@/components/Transaction/UploadPayment";
 import { IoClose } from "react-icons/io5";
-import { UpdateTransaction } from "@/components/Transaction/ButtonUpdateTransaction";
+import { UpdateTransaction } from "@/components/Transaction/UpdateTransaction";
 const DetailMyTransaction = ({ data }) => {
   const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState(true);

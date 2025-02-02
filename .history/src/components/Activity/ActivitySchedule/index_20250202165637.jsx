@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { CreateTransactionModal } from "@/components/Transaction/CreateTransactionModal";
+import { CreateTransactionModal } from "@/components/Transaction/ButtonCreateTransactionModal";
 import { iconMap } from "../../../utils/imageIconData";
 export const ActivitySchedule = ({ activityData }) => {
   const [descriptionContent, setDescriptionContent] = useState("");
