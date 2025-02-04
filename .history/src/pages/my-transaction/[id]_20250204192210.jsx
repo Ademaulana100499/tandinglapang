@@ -40,8 +40,7 @@ const DetailMyTransaction = ({ data }) => {
   if (!data || Object.keys(data).length === 0) {
     return <div>Data not found</div>;
   }
-  const isCancelled = data.status === "cancelled";
-  const isCompleted = data.status === "success";
+
   return (
     <div>
       <Authorization>
@@ -137,19 +136,17 @@ const DetailMyTransaction = ({ data }) => {
                       />
                     </div>
                   ) : (
-                    <span className="text-red-500 mt-1 mb-2 block">
+                    <span className="text-red-500 mt-1 block">
                       Belum ada bukti transfer
                     </span>
                   )}
                 </p>
-                {role === "user" && <UploadPayment transactionId={data.id} />}
+                <UploadPayment transactionId={data.id} />
               </div>
-              {role === "admin" && !isCancelled && !isCompleted && (
+              {role === "admin" && (
                 <UpdateTransaction transactionId={data.id} />
               )}
-              {role === "user" && !isCancelled && !isCompleted && (
-                <CancelTransaction transactionId={data.id} />
-              )}
+              {role === "user" && <CancelTransaction transactionId={data.id} />}
             </div>
           </div>
 

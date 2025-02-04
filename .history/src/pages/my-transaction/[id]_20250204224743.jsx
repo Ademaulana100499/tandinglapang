@@ -40,8 +40,7 @@ const DetailMyTransaction = ({ data }) => {
   if (!data || Object.keys(data).length === 0) {
     return <div>Data not found</div>;
   }
-  const isCancelled = data.status === "cancelled";
-  const isCompleted = data.status === "success";
+
   return (
     <div>
       <Authorization>
@@ -144,12 +143,10 @@ const DetailMyTransaction = ({ data }) => {
                 </p>
                 {role === "user" && <UploadPayment transactionId={data.id} />}
               </div>
-              {role === "admin" && !isCancelled && !isCompleted && (
+              {role === "admin" && (
                 <UpdateTransaction transactionId={data.id} />
               )}
-              {role === "user" && !isCancelled && !isCompleted && (
-                <CancelTransaction transactionId={data.id} />
-              )}
+              {role === "user" && <CancelTransaction transactionId={data.id} />}
             </div>
           </div>
 
