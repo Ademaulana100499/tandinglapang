@@ -15,6 +15,7 @@ import { CreateActivityModal } from "@/components/Activity/CreateActivityModal";
 import { FaPlus } from "react-icons/fa6";
 import { useRole } from "@/context/RoleContext";
 const ActivityPage = ({ data }) => {
+  console.log(data);
   const [open, setOpen] = useState(data[0]?.id || null);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const { role } = useRole();
@@ -156,7 +157,7 @@ const ActivityPage = ({ data }) => {
                   </button>
                   <button
                     onClick={() => setCurrentPage(currentPage + 1)}
-                    disabled={currentPage * itemsPerPage >= data.length}
+                    disabled={currentPage * itemsPerPage >= filteredData.length}
                     className="px-6 py-2 bg-white text-gray-800 rounded-r-lg shadow-md hover:bg-gray-100 disabled:opacity-50 transition-colors flex items-center gap-2">
                     Berikunya
                     <GiShuttlecock className="text-lg" />
@@ -197,14 +198,13 @@ export async function getServerSideProps(context) {
 
     // Memfilter data berdasarkan role jika admin
     const { role } = context.req.cookies; // Atau bisa menggunakan context
-    const { roleId } = context.req.cookies;
-    console.log("Role ID:", roleId);
-    console.log("Role:", role);
     const filteredData =
       role === "admin"
-        ? res.data.result.filter((activity) => activity.organizer.id == roleId)
+        ? res.data.result.filter(
+            (activity) => activity.organizer.id === context.req.cookies.roleId
+          )
         : res.data.result;
-    console.log(filteredData);
+
     return {
       props: { data: filteredData },
     };

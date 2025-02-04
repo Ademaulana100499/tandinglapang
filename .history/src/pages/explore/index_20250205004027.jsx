@@ -197,14 +197,13 @@ export async function getServerSideProps(context) {
 
     // Memfilter data berdasarkan role jika admin
     const { role } = context.req.cookies; // Atau bisa menggunakan context
-    const { roleId } = context.req.cookies;
-    console.log("Role ID:", roleId);
-    console.log("Role:", role);
     const filteredData =
       role === "admin"
-        ? res.data.result.filter((activity) => activity.organizer.id == roleId)
+        ? res.data.result.filter(
+            (activity) => activity.organizer.id === context.req.cookies.roleId
+          )
         : res.data.result;
-    console.log(filteredData);
+
     return {
       props: { data: filteredData },
     };

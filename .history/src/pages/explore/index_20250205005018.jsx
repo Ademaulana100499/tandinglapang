@@ -201,8 +201,8 @@ export async function getServerSideProps(context) {
     console.log("Role ID:", roleId);
     console.log("Role:", role);
     const filteredData =
-      role === "admin"
-        ? res.data.result.filter((activity) => activity.organizer.id == roleId)
+      role === "adminn"
+        ? res.data.result.filter((activity) => activity.organizer.id === roleId)
         : res.data.result;
     console.log(filteredData);
     return {
