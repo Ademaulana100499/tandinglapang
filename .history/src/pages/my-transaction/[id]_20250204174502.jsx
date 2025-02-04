@@ -8,13 +8,11 @@ import { UploadPayment } from "@/components/Transaction/UploadPayment";
 import { IoClose } from "react-icons/io5";
 import { UpdateTransaction } from "@/components/Transaction/ButtonUpdateTransaction";
 import Authorization from "@/components/Authentication/Authorization";
-import { useRole } from "@/context/RoleContext";
 const DetailMyTransaction = ({ data }) => {
   const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
-  const { role } = useRole();
 
   useEffect(() => {
     if (data?.transaction_items?.sport_activities?.description) {
@@ -143,10 +141,8 @@ const DetailMyTransaction = ({ data }) => {
                 </p>
                 <UploadPayment transactionId={data.id} />
               </div>
-              {role === "admin" && (
-                <UpdateTransaction transactionId={data.id} />
-              )}
-              {role === "user" && <CancelTransaction transactionId={data.id} />}
+              <CancelTransaction transactionId={data.id} />
+              <UpdateTransaction transactionId={data.id} />
             </div>
           </div>
 

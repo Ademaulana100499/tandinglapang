@@ -14,7 +14,7 @@ const DetailMyTransaction = ({ data }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
-  const { role } = useRole();
+  const { setRole } = useRole();
 
   useEffect(() => {
     if (data?.transaction_items?.sport_activities?.description) {

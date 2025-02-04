@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Navbar } from "@/components/Features/Navbar";
 import { Footer } from "@/components/Features/Footer";
 import axios from "axios";
+import { useRouter } from "next/router";
 import { FilterActivity } from "@/components/Activity/FilterActivity";
 import Authorization from "@/components/Authentication/Authorization";
 import { motion } from "framer-motion";
@@ -16,6 +17,7 @@ import { FaPlus } from "react-icons/fa6";
 import { useRole } from "@/context/RoleContext";
 const ActivityPage = ({ data }) => {
   const [open, setOpen] = useState(data[0]?.id || null);
+  const router = useRouter();
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const { role, roleId } = useRole();
   const filteredData =

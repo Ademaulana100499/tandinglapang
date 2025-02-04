@@ -14,7 +14,7 @@ const DetailMyTransaction = ({ data }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
-  const { role } = useRole();
+  const { Role } = useRole();
 
   useEffect(() => {
     if (data?.transaction_items?.sport_activities?.description) {
@@ -146,7 +146,7 @@ const DetailMyTransaction = ({ data }) => {
               {role === "admin" && (
                 <UpdateTransaction transactionId={data.id} />
               )}
-              {role === "user" && <CancelTransaction transactionId={data.id} />}
+              {role === "user" && <UpdateTransaction transactionId={data.id} />}
             </div>
           </div>
 

@@ -146,7 +146,7 @@ const DetailMyTransaction = ({ data }) => {
               {role === "admin" && (
                 <UpdateTransaction transactionId={data.id} />
               )}
-              {role === "user" && <CancelTransaction transactionId={data.id} />}
+              {role === "user" && <UpdateTransaction transactionId={data.id} />}
             </div>
           </div>
 

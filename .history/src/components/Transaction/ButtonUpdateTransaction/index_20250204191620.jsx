@@ -8,9 +8,9 @@ export const UpdateTransaction = ({ transactionId }) => {
   return (
     <button
       onClick={updateTransactionStatus}
-      className="bg-green-500 w-52 py-2 hover:bg-green-600 text-white rounded"
+      className="bg-green-500 w-52 py-2 text-white rounded"
       disabled={loading}>
-      {loading ? "Updating..." : "Konfirmasi Transaksi"}
+      {loading ? "Updating..." : "Update"}
     </button>
   );
 };

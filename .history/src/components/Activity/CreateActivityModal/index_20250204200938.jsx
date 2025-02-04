@@ -12,6 +12,7 @@ export const CreateActivityModal = ({ isOpen, setIsOpen }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedLocation, setSelectedLocation] = useState(null);
   const today = format(new Date(), "yyyy-MM-dd");
+  const currentTime = format(new Date(), "HH:mm");
 
   useEffect(() => {
     if (selectedLocation) {

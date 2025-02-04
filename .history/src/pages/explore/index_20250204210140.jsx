@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Navbar } from "@/components/Features/Navbar";
 import { Footer } from "@/components/Features/Footer";
 import axios from "axios";
+import { useRouter } from "next/router";
 import { FilterActivity } from "@/components/Activity/FilterActivity";
 import Authorization from "@/components/Authentication/Authorization";
 import { motion } from "framer-motion";
@@ -16,18 +17,23 @@ import { FaPlus } from "react-icons/fa6";
 import { useRole } from "@/context/RoleContext";
 const ActivityPage = ({ data }) => {
   const [open, setOpen] = useState(data[0]?.id || null);
+  const router = useRouter();
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const { role, roleId } = useRole();
+  const itemsPerPage = 5;
+  const paginatedData = data.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
   const filteredData =
     role === "admin"
       ? data.filter((activity) => activity.organizer.id === roleId)
       : data;
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const paginatedData = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+  const handlePageChange = (newPage) => {
+    if (newPage < 1 || newPage > Math.ceil(data.length / itemsPerPage)) return;
+    setCurrentPage(newPage);
+  };
 
   return (
     <div>
@@ -80,8 +86,8 @@ const ActivityPage = ({ data }) => {
               <FilterActivity className="z-50" />
             </div>
             <div className="flex flex-col lg:flex-row h-fit lg:h-[450px] p-4 lg:p-0 w-full max-w-6xl mx-auto overflow-hidden">
-              {paginatedData.length > 0 ? (
-                paginatedData.map((item) => (
+              {filteredData.length > 0 ? (
+                filteredData.map((item) => (
                   <Panel
                     key={item.id}
                     open={open}
@@ -152,15 +158,17 @@ const ActivityPage = ({ data }) => {
               {data.length > 0 && (
                 <div className="flex justify-center">
                   <button
-                    onClick={() => setCurrentPage(currentPage - 1)}
-                    disabled={currentPage === 1}
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage <= 1}
                     className="px-6 py-2 bg-white text-gray-800 rounded-l-lg shadow-md hover:bg-gray-100 disabled:opacity-50 transition-colors flex items-center gap-2">
                     <MdOutlineSportsTennis className="text-lg" />
                     Sebelumnya
                   </button>
                   <button
-                    onClick={() => setCurrentPage(currentPage + 1)}
-                    disabled={currentPage * itemsPerPage >= filteredData.length}
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={
+                      currentPage >= Math.ceil(data.length / itemsPerPage)
+                    }
                     className="px-6 py-2 bg-white text-gray-800 rounded-r-lg shadow-md hover:bg-gray-100 disabled:opacity-50 transition-colors flex items-center gap-2">
                     Berikunya
                     <GiShuttlecock className="text-lg" />
@@ -197,7 +205,7 @@ export async function getServerSideProps(context) {
       },
     });
     return {
-      props: { data: res.data.result },
+      props: { data: res.data.result.data || [] },
     };
   } catch (error) {
     console.error("Error fetching activities:", error);

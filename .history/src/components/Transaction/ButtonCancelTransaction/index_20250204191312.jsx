@@ -9,14 +9,14 @@ export const CancelTransaction = ({ transactionId }) => {
     <div>
       <button
         onClick={handleCancel}
-        className="bg-red-500 w-52 py-2 hover:bg-red-600 text-white rounded"
+        className="bg-red-500 px-8 py-2 text-white rounded"
         disabled={loading}>
         {loading ? (
           <span>
             <BarLoader />
           </span>
         ) : (
-          "Batalkan Transaksi"
+          "Cancel"
         )}
       </button>
     </div>

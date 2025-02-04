@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Navbar } from "@/components/Features/Navbar";
 import { Footer } from "@/components/Features/Footer";
 import axios from "axios";
+import { useRouter } from "next/router";
 import { FilterActivity } from "@/components/Activity/FilterActivity";
 import Authorization from "@/components/Authentication/Authorization";
 import { motion } from "framer-motion";
@@ -16,8 +17,10 @@ import { FaPlus } from "react-icons/fa6";
 import { useRole } from "@/context/RoleContext";
 const ActivityPage = ({ data }) => {
   const [open, setOpen] = useState(data[0]?.id || null);
+  const router = useRouter();
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const { role, roleId } = useRole();
+
   const filteredData =
     role === "admin"
       ? data.filter((activity) => activity.organizer.id === roleId)
@@ -25,8 +28,12 @@ const ActivityPage = ({ data }) => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+
+  // Hitung indeks mulai dan akhir berdasarkan halaman
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  // Ambil data yang dipaginasikan
   const paginatedData = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
@@ -148,26 +155,21 @@ const ActivityPage = ({ data }) => {
                 </div>
               )}
             </div>
-            <div className="mt-8 p-4 mb-10">
-              {data.length > 0 && (
-                <div className="flex justify-center">
-                  <button
-                    onClick={() => setCurrentPage(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className="px-6 py-2 bg-white text-gray-800 rounded-l-lg shadow-md hover:bg-gray-100 disabled:opacity-50 transition-colors flex items-center gap-2">
-                    <MdOutlineSportsTennis className="text-lg" />
-                    Sebelumnya
-                  </button>
-                  <button
-                    onClick={() => setCurrentPage(currentPage + 1)}
-                    disabled={currentPage * itemsPerPage >= filteredData.length}
-                    className="px-6 py-2 bg-white text-gray-800 rounded-r-lg shadow-md hover:bg-gray-100 disabled:opacity-50 transition-colors flex items-center gap-2">
-                    Berikunya
-                    <GiShuttlecock className="text-lg" />
-                  </button>
-                </div>
-              )}
+            <div className="flex justify-center my-4">
+              <button
+                onClick={() => setCurrentPage(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="px-4 py-2 bg-gray-500 text-white rounded-md">
+                Previous
+              </button>
+              <button
+                onClick={() => setCurrentPage(currentPage + 1)}
+                disabled={currentPage * itemsPerPage >= filteredData.length}
+                className="px-4 py-2 bg-gray-500 text-white rounded-md">
+                Next
+              </button>
             </div>
+
             <CreateActivityModal
               isOpen={isCreateOpen}
               setIsOpen={setIsCreateOpen}
@@ -197,7 +199,7 @@ export async function getServerSideProps(context) {
       },
     });
     return {
-      props: { data: res.data.result },
+      props: { data: res.data.result.data || [] },
     };
   } catch (error) {
     console.error("Error fetching activities:", error);

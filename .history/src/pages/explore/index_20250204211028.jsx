@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Navbar } from "@/components/Features/Navbar";
 import { Footer } from "@/components/Features/Footer";
 import axios from "axios";
+import { useRouter } from "next/router";
 import { FilterActivity } from "@/components/Activity/FilterActivity";
 import Authorization from "@/components/Authentication/Authorization";
 import { motion } from "framer-motion";
@@ -16,17 +17,23 @@ import { FaPlus } from "react-icons/fa6";
 import { useRole } from "@/context/RoleContext";
 const ActivityPage = ({ data }) => {
   const [open, setOpen] = useState(data[0]?.id || null);
+  const router = useRouter();
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const { role, roleId } = useRole();
+
   const filteredData =
     role === "admin"
       ? data.filter((activity) => activity.organizer.id === roleId)
       : data;
-
+  console.log(filteredData);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+
+  // Hitung indeks mulai dan akhir berdasarkan halaman
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  // Ambil data yang dipaginasikan
   const paginatedData = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
@@ -197,7 +204,7 @@ export async function getServerSideProps(context) {
       },
     });
     return {
-      props: { data: res.data.result },
+      props: { data: res.data.result.data || [] },
     };
   } catch (error) {
     console.error("Error fetching activities:", error);
