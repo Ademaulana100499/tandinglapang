@@ -26,7 +26,7 @@ export const FilterActivity = () => {
         <div className="w-40">
           <InteractiveHoverButton
             onClick={handleSearch}
-            className="bg-white py-1.6 px-6 text-black text-xs xl:text-base hover:border-black rounded-md">
+            className="bg-white py-1.6 px-6 text-black hover:border-black rounded-md">
             Cari Sparring
           </InteractiveHoverButton>
         </div>

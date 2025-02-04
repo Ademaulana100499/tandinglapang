@@ -1,5 +1,4 @@
 import { createContext, useState, useEffect, useContext } from "react";
-import { setCookie, getCookie, deleteCookie } from "cookies-next";
 
 const RoleContext = createContext();
 
@@ -10,16 +9,17 @@ export const useRole = () => {
 export const RoleProvider = ({ children }) => {
   const [role, setRole] = useState(() => {
     if (typeof window !== "undefined") {
-      return getCookie("role") || null;
+      const savedRole = localStorage.getItem("role");
+      return savedRole ? JSON.parse(savedRole) : null;
     }
     return null;
   });
 
   useEffect(() => {
     if (role) {
-      setCookie("role", role);
+      localStorage.setItem("role", JSON.stringify(role));
     } else {
-      deleteCookie("role");
+      localStorage.removeItem("role");
     }
   }, [role]);
 

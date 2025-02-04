@@ -2,7 +2,7 @@ import { useState } from "react";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import SportCategoryDropdown from "../../Features/SportCategoryDropdown";
 import { LocationDropdown } from "../../Features/LocationDropdown";
-
+import { useRole } from "@/context/RoleContext";
 export const FilterActivity = () => {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -26,8 +26,8 @@ export const FilterActivity = () => {
         <div className="w-40">
           <InteractiveHoverButton
             onClick={handleSearch}
-            className="bg-white py-1.6 px-6 text-black text-xs xl:text-base hover:border-black rounded-md">
-            Cari Sparring
+            className="bg-white py-1.6 px-6 text-black hover:border-black rounded-md">
+            Cari Lawan
           </InteractiveHoverButton>
         </div>
       </div>
