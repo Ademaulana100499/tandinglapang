@@ -122,7 +122,6 @@ const MyTransaction = ({ transactions }) => {
 };
 
 export default MyTransaction;
-
 export async function getServerSideProps(context) {
   const token = context.req.cookies?.token || "";
   const role = context.req.cookies?.role;
@@ -130,31 +129,7 @@ export async function getServerSideProps(context) {
   let transactions = [];
   let currentPage = 1;
   let lastPage = 1;
-  let idActivity = [];
 
-  if (role === "admin") {
-    try {
-      const { sport_category_id, city_id, search } = context.query;
-      const url = `${
-        process.env.NEXT_PUBLIC_API_URL
-      }/sport-activities?is_paginate=false&sport_category_id=${
-        sport_category_id || ""
-      }&city_id=${city_id || ""}&search=${search || ""}`;
-
-      const res = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const filteredData = res.data.result.filter(
-        (activity) => activity.organizer.id == roleId
-      );
-      idActivity = filteredData.map((item) => item.id);
-    } catch (error) {
-      console.error("Error fetching activities:", error);
-      return { props: { transactions: [] } };
-    }
-  }
   try {
     do {
       const res = await axios.get(
@@ -165,13 +140,7 @@ export async function getServerSideProps(context) {
       );
       const fetchedTransactions = res.data?.result?.data || [];
       lastPage = res.data?.result?.last_page || 1;
-      if (role === "admin" && idActivity.length > 0) {
-        transactions = transactions.concat(
-          fetchedTransactions.filter((transaction) =>
-            idActivity.includes(transaction.transaction_items.sport_activity_id)
-          )
-        );
-      } else if (role === "user" && roleId) {
+      if (role === "user" && roleId) {
         transactions = transactions.concat(
           fetchedTransactions.filter(
             (transaction) => transaction.user_id == roleId

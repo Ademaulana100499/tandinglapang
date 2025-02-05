@@ -149,12 +149,16 @@ export async function getServerSideProps(context) {
       const filteredData = res.data.result.filter(
         (activity) => activity.organizer.id == roleId
       );
+      // Ambil ID activity untuk filter transaksi nanti
       idActivity = filteredData.map((item) => item.id);
+      console.log(idActivity);
     } catch (error) {
       console.error("Error fetching activities:", error);
       return { props: { transactions: [] } };
     }
   }
+
+  // Fetch transaksi
   try {
     do {
       const res = await axios.get(
@@ -165,21 +169,26 @@ export async function getServerSideProps(context) {
       );
       const fetchedTransactions = res.data?.result?.data || [];
       lastPage = res.data?.result?.last_page || 1;
+
       if (role === "admin" && idActivity.length > 0) {
+        // Jika admin, filter transaksi berdasarkan idActivity
         transactions = transactions.concat(
           fetchedTransactions.filter((transaction) =>
-            idActivity.includes(transaction.transaction_items.sport_activity_id)
+            idActivity.includes(transaction.activity_id)
           )
         );
       } else if (role === "user" && roleId) {
+        // Jika user, filter transaksi berdasarkan roleId
         transactions = transactions.concat(
           fetchedTransactions.filter(
             (transaction) => transaction.user_id == roleId
           )
         );
       } else {
+        // Jika bukan admin atau user, ambil semua transaksi
         transactions = transactions.concat(fetchedTransactions);
       }
+
       currentPage++;
     } while (currentPage <= lastPage);
 

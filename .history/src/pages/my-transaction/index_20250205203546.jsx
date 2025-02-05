@@ -122,7 +122,6 @@ const MyTransaction = ({ transactions }) => {
 };
 
 export default MyTransaction;
-
 export async function getServerSideProps(context) {
   const token = context.req.cookies?.token || "";
   const role = context.req.cookies?.role;
@@ -130,11 +129,10 @@ export async function getServerSideProps(context) {
   let transactions = [];
   let currentPage = 1;
   let lastPage = 1;
-  let idActivity = [];
-
   if (role === "admin") {
     try {
       const { sport_category_id, city_id, search } = context.query;
+      const token = context.req.cookies.token;
       const url = `${
         process.env.NEXT_PUBLIC_API_URL
       }/sport-activities?is_paginate=false&sport_category_id=${
@@ -146,15 +144,23 @@ export async function getServerSideProps(context) {
           Authorization: `Bearer ${token}`,
         },
       });
-      const filteredData = res.data.result.filter(
-        (activity) => activity.organizer.id == roleId
-      );
-      idActivity = filteredData.map((item) => item.id);
+      const filteredData =
+        role === "admin"
+          ? res.data.result.filter(
+              (activity) => activity.organizer.id == roleId
+            )
+          : res.data.result;
+      const idActivity = filteredData.map((item) => item.id);
+      console.log(idActivity);
+      return {
+        props: { data: filteredData },
+      };
     } catch (error) {
       console.error("Error fetching activities:", error);
-      return { props: { transactions: [] } };
+      return { props: { data: [] } };
     }
   }
+
   try {
     do {
       const res = await axios.get(
@@ -165,13 +171,7 @@ export async function getServerSideProps(context) {
       );
       const fetchedTransactions = res.data?.result?.data || [];
       lastPage = res.data?.result?.last_page || 1;
-      if (role === "admin" && idActivity.length > 0) {
-        transactions = transactions.concat(
-          fetchedTransactions.filter((transaction) =>
-            idActivity.includes(transaction.transaction_items.sport_activity_id)
-          )
-        );
-      } else if (role === "user" && roleId) {
+      if (role === "user" && roleId) {
         transactions = transactions.concat(
           fetchedTransactions.filter(
             (transaction) => transaction.user_id == roleId

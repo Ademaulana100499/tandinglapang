@@ -122,6 +122,7 @@ const MyTransaction = ({ transactions }) => {
 };
 
 export default MyTransaction;
+import axios from "axios";
 
 export async function getServerSideProps(context) {
   const token = context.req.cookies?.token || "";
@@ -132,6 +133,7 @@ export async function getServerSideProps(context) {
   let lastPage = 1;
   let idActivity = [];
 
+  // Jika admin, fetch activity terlebih dahulu
   if (role === "admin") {
     try {
       const { sport_category_id, city_id, search } = context.query;
@@ -146,15 +148,21 @@ export async function getServerSideProps(context) {
           Authorization: `Bearer ${token}`,
         },
       });
+
+      // Filter hanya aktivitas milik admin
       const filteredData = res.data.result.filter(
         (activity) => activity.organizer.id == roleId
       );
+
+      // Ambil ID activity untuk filter transaksi nanti
       idActivity = filteredData.map((item) => item.id);
     } catch (error) {
       console.error("Error fetching activities:", error);
       return { props: { transactions: [] } };
     }
   }
+
+  // Fetch transaksi
   try {
     do {
       const res = await axios.get(
@@ -165,21 +173,26 @@ export async function getServerSideProps(context) {
       );
       const fetchedTransactions = res.data?.result?.data || [];
       lastPage = res.data?.result?.last_page || 1;
+
       if (role === "admin" && idActivity.length > 0) {
+        // Jika admin, filter transaksi berdasarkan idActivity
         transactions = transactions.concat(
           fetchedTransactions.filter((transaction) =>
-            idActivity.includes(transaction.transaction_items.sport_activity_id)
+            idActivity.includes(transaction.activity_id)
           )
         );
       } else if (role === "user" && roleId) {
+        // Jika user, filter transaksi berdasarkan roleId
         transactions = transactions.concat(
           fetchedTransactions.filter(
             (transaction) => transaction.user_id == roleId
           )
         );
       } else {
+        // Jika bukan admin atau user, ambil semua transaksi
         transactions = transactions.concat(fetchedTransactions);
       }
+
       currentPage++;
     } while (currentPage <= lastPage);
 

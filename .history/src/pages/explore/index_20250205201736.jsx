@@ -198,12 +198,11 @@ export async function getServerSideProps(context) {
         Authorization: `Bearer ${token}`,
       },
     });
+
     const filteredData =
       role === "admin"
         ? res.data.result.filter((activity) => activity.organizer.id == roleId)
         : res.data.result;
-    const idActivity = filteredData.map((item) => item.id);
-    console.log(idActivity);
     return {
       props: { data: filteredData },
     };

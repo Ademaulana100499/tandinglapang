@@ -202,8 +202,6 @@ export async function getServerSideProps(context) {
       role === "admin"
         ? res.data.result.filter((activity) => activity.organizer.id == roleId)
         : res.data.result;
-    const idActivity = filteredData.map((item) => item.id);
-    console.log(idActivity);
     return {
       props: { data: filteredData },
     };
