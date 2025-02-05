@@ -79,7 +79,7 @@ const DetailMyTransaction = ({ data, role }) => {
                 <strong>Tanggal Kedaluwarsa:</strong> {data.expired_date}
               </p>
 
-              <div className="mt-6 border-t mb-2 border-black pt-4">
+              <div className="mt-6 border-t border-black pt-4">
                 <h3 className="text-lg font-semibold text-black">
                   Item Transaksi
                 </h3>
@@ -106,7 +106,7 @@ const DetailMyTransaction = ({ data, role }) => {
                     href={data.transaction_items.sport_activities.map_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-700 hover:underline">
+                    className="text-green-600 hover:underline">
                     {data.transaction_items.sport_activities.address}
                   </a>
                 </p>
@@ -141,9 +141,7 @@ const DetailMyTransaction = ({ data, role }) => {
                     </span>
                   )}
                 </p>
-                <div>
-                  {role === "user" && <UploadPayment transactionId={data.id} />}
-                </div>
+                {role === "user" && <UploadPayment transactionId={data.id} />}
               </div>
               {role === "admin" && !isCancelled && !isCompleted && (
                 <UpdateTransaction transactionId={data.id} />

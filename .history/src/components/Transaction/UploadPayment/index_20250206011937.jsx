@@ -6,7 +6,7 @@ export const UploadPayment = ({ transactionId }) => {
     useUploadPayment(transactionId);
 
   return (
-    <div className="mt-2 mb-2 text-sm">
+    <div className="mt-4 mb-2 text-sm">
       {errorMessage && (
         <span className="mb-2 text-red-500">{errorMessage}</span>
       )}

@@ -106,7 +106,7 @@ const DetailMyTransaction = ({ data, role }) => {
                     href={data.transaction_items.sport_activities.map_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-700 hover:underline">
+                    className="text-green-600 hover:underline">
                     {data.transaction_items.sport_activities.address}
                   </a>
                 </p>

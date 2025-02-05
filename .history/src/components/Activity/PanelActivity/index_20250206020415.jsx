@@ -102,7 +102,7 @@ const Panel = ({
                   initial="closed"
                   animate="open"
                   exit="closed"
-                  className="px-4 py-1 text-xs xl:text-base bg-black/10 backdrop-blur-sm text-white">
+                  className="px-4 py-1 text-xs xl:text-base bg-black/40 backdrop-blur-sm text-white">
                   <p>{sport_category}</p>
                 </motion.div>
               </div>

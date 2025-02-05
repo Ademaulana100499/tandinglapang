@@ -88,21 +88,22 @@ const Panel = ({
             }}
             className="w-full h-full text-xs xl:text-base  overflow-hidden relative bg-black">
             <div className="relative w-full h-full p-4">
-              <div className="absolute top-0 left-0 w-full flex justify-between items-start gap-2">
+              <div className="absolute top-0 left-0 w-full flex flex-col gap-1">
                 <motion.div
                   variants={itemVariants}
                   initial="closed"
                   animate="open"
                   exit="closed"
-                  className="px-4 text-xs xl:text-base py-1 bg-black/10 backdrop-blur-sm text-white max-w-[80%]">
+                  className="px-4 text-xs xl:text-base py-1 bg-black/10 backdrop-blur-sm text-white inline-block w-fit">
                   <p className="whitespace-normal break-words">{item}</p>
                 </motion.div>
+
                 <motion.div
                   variants={itemVariants}
                   initial="closed"
                   animate="open"
                   exit="closed"
-                  className="px-4 py-1 text-xs xl:text-base bg-black/10 backdrop-blur-sm text-white">
+                  className="px-4 py-1 text-xs xl:text-base bg-black/40 backdrop-blur-sm text-white inline-block w-fit self-end">
                   <p>{sport_category}</p>
                 </motion.div>
               </div>

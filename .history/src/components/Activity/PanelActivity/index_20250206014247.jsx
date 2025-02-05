@@ -64,9 +64,7 @@ const Panel = ({
           className="hidden lg:block text-xl font-light rotate-180">
           {title}
         </span>
-        <span className="block lg:hidden text-base xl:text-xl font-light">
-          {title}
-        </span>
+        <span className="block lg:hidden text-xl font-light">{title}</span>
         <div className="w-6 lg:w-full aspect-square bg-green-600 text-white grid place-items-center">
           <Icon />
         </div>
@@ -86,34 +84,34 @@ const Panel = ({
               backgroundPosition: "center",
               backgroundSize: "cover",
             }}
-            className="w-full h-full text-xs xl:text-base  overflow-hidden relative bg-black">
+            className="w-full h-full overflow-hidden relative bg-black">
             <div className="relative w-full h-full p-4">
-              <div className="absolute top-0 left-0 w-full flex justify-between items-start gap-2">
+              <div className="absolute top-0 text-xs xl:text-base left-0 w-full gap-2 ">
                 <motion.div
                   variants={itemVariants}
                   initial="closed"
                   animate="open"
                   exit="closed"
-                  className="px-4 text-xs xl:text-base py-1 bg-black/10 backdrop-blur-sm text-white max-w-[80%]">
-                  <p className="whitespace-normal break-words">{item}</p>
+                  className="px-4 py-2 bg-black/40 backdrop-blur-sm text-white inline-block">
+                  <p>{item}</p>
                 </motion.div>
+
                 <motion.div
                   variants={itemVariants}
                   initial="closed"
                   animate="open"
                   exit="closed"
-                  className="px-4 py-1 text-xs xl:text-base bg-black/10 backdrop-blur-sm text-white">
+                  className="px-4 py-2 absolute top-0 right-0 bg-black/40 backdrop-blur-sm text-white inline-block">
                   <p>{sport_category}</p>
                 </motion.div>
               </div>
-
-              <div className="absolute text-xs xl:text-base  bottom-0 left-0 w-full flex flex-col backdrop-blur-sm">
+              <div className="absolute  bottom-0 left-0 w-full flex flex-col backdrop-blur-sm">
                 <motion.div
                   variants={itemVariants}
                   initial="closed"
                   animate="open"
                   exit="closed"
-                  className="px-4 py-2 text-xs xl:text-base bg-black/10  text-white inline-block">
+                  className="px-4 py-2 bg-black/40  text-white inline-block">
                   <p>Rp. {price}</p>
                 </motion.div>
 
@@ -122,7 +120,7 @@ const Panel = ({
                   initial="closed"
                   animate="open"
                   exit="closed"
-                  className="px-4 py-2 text-xs xl:text-base bg-black/10  text-white inline-block">
+                  className="px-4 py-2 bg-black/40  text-white inline-block">
                   <p>
                     Tanggal:{" "}
                     {new Date(date)
@@ -133,13 +131,13 @@ const Panel = ({
                   </p>
                 </motion.div>
               </div>
-              <div className="absolute text-xs xl:text-base bottom-0 right-0">
+              <div className="absolute bottom-0 right-0">
                 <motion.div
                   variants={itemVariants}
                   initial="closed"
                   animate="open"
                   exit="closed"
-                  className="px-8 py-2 text-xs xl:text-base bg-black backdrop-blur-sm hover:bg-black transition-colors text-white">
+                  className="px-8 py-2 bg-black/40 backdrop-blur-sm hover:bg-black transition-colors text-white">
                   <button onClick={() => router.push(`/explore/${id}`)}>
                     Detail
                   </button>

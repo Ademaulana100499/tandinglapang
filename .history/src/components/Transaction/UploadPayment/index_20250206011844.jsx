@@ -6,7 +6,7 @@ export const UploadPayment = ({ transactionId }) => {
     useUploadPayment(transactionId);
 
   return (
-    <div className="mt-2 mb-2 text-sm">
+    <div className="mt-4 text-sm">
       {errorMessage && (
         <span className="mb-2 text-red-500">{errorMessage}</span>
       )}
@@ -18,7 +18,7 @@ export const UploadPayment = ({ transactionId }) => {
         <input
           type="file"
           onChange={handleFileChange}
-          className="p-1  border border-gray-300"
+          className="p-1 mb-4 border border-gray-300"
         />
         <button
           onClick={updateProofPayment}
