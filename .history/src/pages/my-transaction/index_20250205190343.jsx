@@ -122,7 +122,7 @@ const MyTransaction = ({ transactions }) => {
 };
 
 export default MyTransaction;
-export async function getServerSideProps(context) {
+export async function getServerSideProps({ context }) {
   const token = context.req.cookies?.token || "";
   const role = context.req.cookies?.role;
   const roleId = context.req.cookies?.roleId;
