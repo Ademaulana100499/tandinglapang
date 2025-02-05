@@ -9,6 +9,8 @@ const MyTransaction = ({ transactions, role }) => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 15;
+  const role = useRole(role);
+  console.log(role);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -157,11 +159,11 @@ export async function getServerSideProps(context) {
       );
       idActivity = filteredData.map((item) => item.id);
       if (idActivity.length === 0) {
-        return { props: { transactions: [], role } };
+        return { props: { transactions: [] } };
       }
     } catch (error) {
       console.error("Error fetching activities:", error);
-      return { props: { transactions: [], role } };
+      return { props: { transactions: [] } };
     }
   }
 
@@ -193,9 +195,9 @@ export async function getServerSideProps(context) {
       currentPage++;
     } while (currentPage <= lastPage);
 
-    return { props: { transactions, role } };
+    return { props: { transactions }, role };
   } catch (error) {
     console.error("Error fetching transactions:", error);
-    return { props: { transactions: [], role } };
+    return { props: { transactions: [] } };
   }
 }

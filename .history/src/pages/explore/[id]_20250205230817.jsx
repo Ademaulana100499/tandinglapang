@@ -8,6 +8,7 @@ import { ReactLenis } from "lenis/dist/lenis-react";
 import Authorization from "@/components/Authentication/Authorization";
 
 const ActivityDetailPage = ({ activityData, role }) => {
+  console.log(role); // Memastikan role diterima dengan benar
   return (
     <div>
       <Authorization>
@@ -25,8 +26,8 @@ const ActivityDetailPage = ({ activityData, role }) => {
 };
 
 export async function getServerSideProps(context) {
-  const role = context.req.cookies?.role;
-  const { id } = context.params || { id: "" };
+  const role = context.req.cookies?.role; // Mendapatkan role dari cookies
+  const { id } = context.params || { id: "" }; // Mendapatkan ID dari params
 
   try {
     const res = await axios.get(
@@ -38,16 +39,16 @@ export async function getServerSideProps(context) {
 
     return {
       props: {
-        activityData: res.data.result || {},
-        role,
+        activityData: res.data.result || {}, // Mengirimkan data activity
+        role, // Mengirimkan role juga ke props
       },
     };
   } catch (error) {
     console.error("Error fetching activity details:", error);
     return {
       props: {
-        activityData: {},
-        role,
+        activityData: {}, // Jika terjadi error, kirimkan activityData kosong
+        role, // Tetap kirimkan role meski terjadi error
       },
     };
   }

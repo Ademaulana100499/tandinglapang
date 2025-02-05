@@ -6,7 +6,6 @@ import { HeroSectionActivity } from "@/components/Activity/ActivityHero";
 import { ActivitySchedule } from "@/components/Activity/ActivitySchedule";
 import { ReactLenis } from "lenis/dist/lenis-react";
 import Authorization from "@/components/Authentication/Authorization";
-
 const ActivityDetailPage = ({ activityData, role }) => {
   return (
     <div>
@@ -25,9 +24,8 @@ const ActivityDetailPage = ({ activityData, role }) => {
 };
 
 export async function getServerSideProps(context) {
-  const role = context.req.cookies?.role;
+  const { role } = context.req.cookies;
   const { id } = context.params || { id: "" };
-
   try {
     const res = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/sport-activities/${id}`,
@@ -35,21 +33,10 @@ export async function getServerSideProps(context) {
         headers: { Authorization: `Bearer ${context.req.cookies.token}` },
       }
     );
-
-    return {
-      props: {
-        activityData: res.data.result || {},
-        role,
-      },
-    };
+    return { props: { activityData: res.data.result || {} } };
   } catch (error) {
     console.error("Error fetching activity details:", error);
-    return {
-      props: {
-        activityData: {},
-        role,
-      },
-    };
+    return { props: { activityData: {}, role } };
   }
 }
 

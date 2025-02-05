@@ -5,7 +5,7 @@ import { Footer } from "@/components/Features/Footer";
 import { useRouter } from "next/router";
 import Authorization from "@/components/Authentication/Authorization";
 
-const MyTransaction = ({ transactions, role }) => {
+const MyTransaction = ({ transactions }) => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 15;
@@ -157,11 +157,11 @@ export async function getServerSideProps(context) {
       );
       idActivity = filteredData.map((item) => item.id);
       if (idActivity.length === 0) {
-        return { props: { transactions: [], role } };
+        return { props: { transactions: [] } };
       }
     } catch (error) {
       console.error("Error fetching activities:", error);
-      return { props: { transactions: [], role } };
+      return { props: { transactions: [] } };
     }
   }
 
@@ -193,9 +193,9 @@ export async function getServerSideProps(context) {
       currentPage++;
     } while (currentPage <= lastPage);
 
-    return { props: { transactions, role } };
+    return { props: { transactions } };
   } catch (error) {
     console.error("Error fetching transactions:", error);
-    return { props: { transactions: [], role } };
+    return { props: { transactions: [] } };
   }
 }

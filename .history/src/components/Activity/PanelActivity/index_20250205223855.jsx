@@ -124,13 +124,15 @@ const Panel = ({
                   <p>
                     Tanggal:{" "}
                     {new Date(date)
-                      .toLocaleDateString("id-ID")
+                      .toLocaleDateString("id-ID") // Format Indonesia (dd/mm/yyyy)
                       .split("/")
-                      .map((item) => item.padStart(2, "0"))
+                      .map((item) => item.padStart(2, "0")) // Menambahkan 0 jika digitnya kurang dari 2
                       .join("-")}
                   </p>
                 </motion.div>
               </div>
+
+              {/* Bottom Right Section */}
               <div className="absolute bottom-0 right-0">
                 <motion.div
                   variants={itemVariants}

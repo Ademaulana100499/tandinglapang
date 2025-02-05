@@ -131,6 +131,8 @@ const Panel = ({
                   </p>
                 </motion.div>
               </div>
+
+              {/* Bottom Right Section */}
               <div className="absolute bottom-0 right-0">
                 <motion.div
                   variants={itemVariants}

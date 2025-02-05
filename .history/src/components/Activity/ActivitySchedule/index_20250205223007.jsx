@@ -4,12 +4,14 @@ import { CreateTransactionModal } from "@/components/Transaction/CreateTransacti
 import { iconMap } from "../../../utils/imageIconData";
 import { ButtonDeletedActivity } from "../ButtonDeletedActivity";
 import { EditActivityModal } from "../EditActivityModal";
-export const ActivitySchedule = ({ activityData, role }) => {
+import { useRole } from "@/context/RoleContext";
+export const ActivitySchedule = ({ activityData }) => {
   const [descriptionContent, setDescriptionContent] = useState("");
   const [loading, setLoading] = useState(true);
   const [isTransactionOpen, setIsTransactionOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
-  console.log(role);
+  const { role } = useRole();
+
   useEffect(() => {
     if (activityData.description) {
       setDescriptionContent(activityData.description);
@@ -47,18 +49,20 @@ export const ActivitySchedule = ({ activityData, role }) => {
       <ScheduleItem title="Lokasi" date={activityData.address} />
       <ScheduleItem
         title="Tanggal"
-        date={new Date(activityData.activity_date)
-          .toLocaleDateString("id-ID")
-          .split("/")
-          .map((item) => item.padStart(2, "0"))
-          .join("-")}
+        date={(() => {
+          let date = activityData.activity_date;
+          let formattedDate = new Date(date);
+          let day = formattedDate.getDate().toString().padStart(2, "0");
+          let month = (formattedDate.getMonth() + 1)
+            .toString()
+            .padStart(2, "0");
+          let year = formattedDate.getFullYear();
+          return `${day}-${month}-${year}`;
+        })()}
       />
-
       <ScheduleItem
         title="Waktu"
-        date={`${activityData.start_time + " WIB"} - ${
-          activityData.end_time + " WIB"
-        }`}
+        date={`${activityData.start_time} - ${activityData.end_time}`}
       />
       <ScheduleItem title="Harga" date={`Rp.${activityData.price}`} />
       <ScheduleItem title="Slot Tersedia" date={activityData.slot} />

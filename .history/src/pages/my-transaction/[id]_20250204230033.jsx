@@ -8,12 +8,13 @@ import { UploadPayment } from "@/components/Transaction/UploadPayment";
 import { IoClose } from "react-icons/io5";
 import { UpdateTransaction } from "@/components/Transaction/ButtonUpdateTransaction";
 import Authorization from "@/components/Authentication/Authorization";
-
-const DetailMyTransaction = ({ data, role }) => {
+import { useRole } from "@/context/RoleContext";
+const DetailMyTransaction = ({ data }) => {
   const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
+  const { role } = useRole();
 
   useEffect(() => {
     if (data?.transaction_items?.sport_activities?.description) {
@@ -178,33 +179,19 @@ const DetailMyTransaction = ({ data, role }) => {
 export default DetailMyTransaction;
 
 export async function getServerSideProps(context) {
-  const { role, token } = context.req.cookies;
   const param = context.params || { id: "" };
-
   try {
     const res = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/transaction/${param.id}`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${context.req.cookies.token}`,
         },
       }
     );
-
-    return {
-      props: {
-        data: res.data.result || {},
-        role,
-      },
-    };
+    return { props: { data: res.data.result || {} } };
   } catch (error) {
-    console.error("Error fetching transaction details:", error);
-
-    return {
-      props: {
-        data: {},
-        role,
-      },
-    };
+    console.error("Error fetching activity details:", error);
+    return { props: { data: {} } };
   }
 }

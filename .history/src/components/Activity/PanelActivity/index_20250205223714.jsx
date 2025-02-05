@@ -121,16 +121,23 @@ const Panel = ({
                   animate="open"
                   exit="closed"
                   className="px-4 py-2 bg-black/40  text-white inline-block">
-                  <p>
-                    Tanggal:{" "}
-                    {new Date(date)
-                      .toLocaleDateString("id-ID")
-                      .split("/")
-                      .map((item) => item.padStart(2, "0"))
-                      .join("-")}
-                  </p>
+                 <p>
+    Tanggal: {
+      (() => {
+        let date = {date}; // Misalnya tanggal yang ingin diformat
+        let formattedDate = new Date(date);
+        let day = formattedDate.getDate().toString().padStart(2, '0');
+        let month = (formattedDate.getMonth() + 1).toString().padStart(2, '0');
+        let year = formattedDate.getFullYear();
+        return `${day}-${month}-${year}`;
+      })()
+    }
+  </p>
+</motion.div>
                 </motion.div>
               </div>
+
+              {/* Bottom Right Section */}
               <div className="absolute bottom-0 right-0">
                 <motion.div
                   variants={itemVariants}

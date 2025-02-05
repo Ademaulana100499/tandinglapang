@@ -4,11 +4,13 @@ import { CreateTransactionModal } from "@/components/Transaction/CreateTransacti
 import { iconMap } from "../../../utils/imageIconData";
 import { ButtonDeletedActivity } from "../ButtonDeletedActivity";
 import { EditActivityModal } from "../EditActivityModal";
-export const ActivitySchedule = ({ activityData, role }) => {
+import { useRole } from "@/context/RoleContext";
+export const ActivitySchedule = ({ activityData }) => {
   const [descriptionContent, setDescriptionContent] = useState("");
   const [loading, setLoading] = useState(true);
   const [isTransactionOpen, setIsTransactionOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const { role } = useRole();
   console.log(role);
   useEffect(() => {
     if (activityData.description) {
@@ -88,14 +90,14 @@ export const ActivitySchedule = ({ activityData, role }) => {
           </a>
         }
       />
-      {role === "user" && (
+      {role.role === "user" && (
         <button
           onClick={() => setIsTransactionOpen(true)}
           className="mt-4 w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-100">
           Gabung Sekarang
         </button>
       )}
-      {role === "admin" && (
+      {role.role === "admin" && (
         <button
           onClick={() => setIsEditOpen(true)}
           className="mt-4 w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-100">

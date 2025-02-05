@@ -9,7 +9,7 @@ export const ActivitySchedule = ({ activityData, role }) => {
   const [loading, setLoading] = useState(true);
   const [isTransactionOpen, setIsTransactionOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
-  console.log(role);
+
   useEffect(() => {
     if (activityData.description) {
       setDescriptionContent(activityData.description);

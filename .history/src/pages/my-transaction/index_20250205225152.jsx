@@ -4,11 +4,13 @@ import { Navbar } from "@/components/Features/Navbar";
 import { Footer } from "@/components/Features/Footer";
 import { useRouter } from "next/router";
 import Authorization from "@/components/Authentication/Authorization";
+import { useRole } from "@/context/RoleContext";
 
-const MyTransaction = ({ transactions, role }) => {
+const MyTransaction = ({ transactions }) => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 15;
+  const role = useRole();
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -106,7 +108,7 @@ const MyTransaction = ({ transactions, role }) => {
                   <p className="text-center text-lg font-semibold text-black">
                     Belum ada transaksi.
                   </p>
-                  {role === "admin" ? (
+                  {role.role === "admin" ? (
                     <p className="text-center text-sm text-gray-600">
                       Ajak peserta untuk melakukan transaksi.
                     </p>
