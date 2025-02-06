@@ -151,7 +151,7 @@ export async function getServerSideProps(context) {
 
       if (res.data?.result && Array.isArray(res.data.result)) {
         idActivity = res.data.result
-          .filter((activity) => activity.organizer?.id === parseInt(roleId, 10))
+          .filter((activity) => activity.organizer?.id === roleId)
           .map((item) => item.id);
       }
 
