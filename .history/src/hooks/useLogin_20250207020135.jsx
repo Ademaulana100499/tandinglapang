@@ -54,7 +54,6 @@ const useLogin = (setIsOpen) => {
 
       setFormData({ email: "", password: "" });
       setCookie("token", res.data.data.token);
-      setCookie("email", res.data.data.email);
       setIsOpen(false);
       const userRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/me`, {
         headers: {

@@ -34,7 +34,7 @@ export const RegisterModal = ({ isOpen, setIsOpen, role }) => {
                 <FiUser className="text-white text-3xl" />
               </div>
 
-              {formData.role === "admin" && (
+              {formData.role === "organizer" && (
                 <h3 className="text-2xl font-bold mb-2">
                   Daftar Akun Penyelenggara
                 </h3>
@@ -42,7 +42,7 @@ export const RegisterModal = ({ isOpen, setIsOpen, role }) => {
               {formData.role === "user" && (
                 <h3 className="text-2xl font-bold mb-2">Daftar Akun User</h3>
               )}
-              {formData.role === "admin" && (
+              {formData.role === "organizer" && (
                 <p className="text-gray-600 text-sm mb-4">
                   Daftarkan acara Anda sekarang dan dapatkan anggota dengan
                   mudah!

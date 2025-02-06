@@ -22,13 +22,13 @@ export const AdminSection = () => {
             Buat Acara Anda Sekarang
           </h3>
           <p className="text-base md:text-lg text-white my-4 ">
-            Sebagai Penyelenggara, Anda dapat mengelola acara Anda dengan mudah
+            Sebagai penyedia acara, Anda dapat mengelola acara Anda dengan mudah
             dan menghubungkannya dengan para peserta.
           </p>
           <button
-            onClick={() => openModalWithRole("admin")}
+            onClick={() => openModalWithRole("organizer")}
             className="bg-green-500 text-white font-medium py-2 px-4 rounded transition-all hover:bg-green-700 active:scale-95">
-            Daftar Sebagai Penyelenggara
+            Daftar Sebagai Penyedia Acara
           </button>
         </div>
         <ShuffleGrid />

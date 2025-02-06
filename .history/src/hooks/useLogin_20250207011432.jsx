@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { useRole } from "@/context/RoleContext";
 const useLogin = (setIsOpen) => {
   const router = useRouter();
-  const { setRole, setRoleId, setEmail } = useRole();
+  const { setRole, setRoleId } = useRole();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -54,7 +54,6 @@ const useLogin = (setIsOpen) => {
 
       setFormData({ email: "", password: "" });
       setCookie("token", res.data.data.token);
-      setCookie("email", res.data.data.email);
       setIsOpen(false);
       const userRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/me`, {
         headers: {
@@ -66,11 +65,11 @@ const useLogin = (setIsOpen) => {
       if (userData.data) {
         setRole(userData.data.role);
         setRoleId(userData.data.id);
-        setEmail(userData.data.email);
+        // Cek apakah email mengandung '@dibimbing.com'
         if (userData.data.email.endsWith("@dibimbing.com")) {
-          router.push("/dashboard");
+          router.push("/dashboard"); // Arahkan ke dashboard
         } else {
-          router.push("/");
+          router.push("/"); // Arahkan ke halaman utama atau halaman lain
         }
       }
     } catch (error) {

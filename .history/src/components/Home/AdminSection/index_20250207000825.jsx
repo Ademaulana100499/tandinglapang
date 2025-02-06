@@ -26,7 +26,7 @@ export const AdminSection = () => {
             dan menghubungkannya dengan para peserta.
           </p>
           <button
-            onClick={() => openModalWithRole("admin")}
+            onClick={() => openModalWithRole("organizer")}
             className="bg-green-500 text-white font-medium py-2 px-4 rounded transition-all hover:bg-green-700 active:scale-95">
             Daftar Sebagai Penyelenggara
           </button>

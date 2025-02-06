@@ -10,7 +10,7 @@ const UnauthorizedPage = () => {
     <div>
       <div className="h-screen flex flex-col justify-center items-center bg-gradient-to-r from-green-400 to-green-600 p-8 rounded-lg shadow-xl">
         <div className="text-center text-3xl font-semibold text-white mb-6 flex flex-col items-center">
-          Anda tidak memiliki akses untuk mengakses halaman ini!
+          Anda tidak memiliki akses untuk mengakses halaman ini
         </div>
         <div className="space-y-4">
           <p className="text-lg text-white opacity-80">

@@ -63,7 +63,7 @@ const ProfilePage = ({ data }) => {
                 </div>
                 <div className="flex flex-col md:flex-row md:items-center md:space-x-4">
                   <p className="text-lg text-black">
-                    <strong>Role:</strong>
+                    <strong>Sebagai:</strong>
                   </p>
                   <p className="text-lg text-black">{data.role}</p>
                 </div>

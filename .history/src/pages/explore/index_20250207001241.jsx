@@ -33,12 +33,12 @@ const ActivityPage = ({ data, role }) => {
             <div className="text-center pt-8 px-4 bg-transparent bg-opacity-50">
               <h2 className="uppercase text-3xl sm:text-4xl lg:text-6xl md:text-6xl font-extrabold text-black flex justify-center items-center gap-2 sm:gap-3">
                 <GiSoccerBall className="text-white animate-bounce" />
-                {role === "admin"
+                {role === "organizer"
                   ? "Buat Acara Sparring"
                   : "Cari Lawan Sparring Terbaikmu!"}
                 <MdSportsBasketball className="text-white animate-bounce" />
               </h2>
-              {role === "admin" ? (
+              {role === "organizer" ? (
                 <WordRotate
                   duration={4000}
                   className="text-xl sm:text-xl lg:text-2xl md:text-2xl font-semibold text-black dark:text-white"
@@ -60,7 +60,7 @@ const ActivityPage = ({ data, role }) => {
             </div>
             <div className="p-4 ">
               <div className="max-w-6xl mx-auto ">
-                {role === "admin" && (
+                {role === "organizer" && (
                   <button
                     onClick={(e) => {
                       e.preventDefault();
@@ -103,7 +103,7 @@ const ActivityPage = ({ data, role }) => {
               ) : (
                 <div className="w-full flex justify-center items-center text-white text-lg p-10 relative">
                   <div className="absolute inset-0  opacity-50 bg-black/50  "></div>
-                  {role === "admin" ? (
+                  {role === "organizer" ? (
                     <motion.div
                       className="relative text-center p-6 transform transition-all duration-500"
                       initial={{ opacity: 0, scale: 1 }}
@@ -198,7 +198,7 @@ export async function getServerSideProps(context) {
     });
 
     const filteredData =
-      role === "admin"
+      role === "organizer"
         ? res.data.result.filter((activity) => activity.organizer.id == roleId)
         : res.data.result;
 

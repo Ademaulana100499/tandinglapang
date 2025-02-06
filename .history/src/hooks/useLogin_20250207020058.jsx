@@ -54,7 +54,6 @@ const useLogin = (setIsOpen) => {
 
       setFormData({ email: "", password: "" });
       setCookie("token", res.data.data.token);
-      setCookie("email", res.data.data.email);
       setIsOpen(false);
       const userRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/me`, {
         headers: {
@@ -66,7 +65,7 @@ const useLogin = (setIsOpen) => {
       if (userData.data) {
         setRole(userData.data.role);
         setRoleId(userData.data.id);
-        setEmail(userData.data.email);
+
         if (userData.data.email.endsWith("@dibimbing.com")) {
           router.push("/dashboard");
         } else {

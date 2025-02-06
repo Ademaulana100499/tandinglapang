@@ -1,12 +1,23 @@
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import useLocation from "@/hooks/useLocation";
 
 export const LocationDropdown = ({ selectedLocation, setSelectedLocation }) => {
   const locations = useLocation();
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const handleLocationChange = (selectedOption) => {
     setSelectedLocation(selectedOption);
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div className="w-full text-xs xl:text-base">
@@ -29,11 +40,11 @@ export const LocationDropdown = ({ selectedLocation, setSelectedLocation }) => {
           menu: (provided) => ({
             ...provided,
             maxHeight: "200px",
-            overflowY: "auto",
+            overflowY: "hidden",
           }),
           control: (provided) => ({
             ...provided,
-            minHeight: "35px",
+            minHeight: windowWidth >= 1440 ? "45px" : "35px",
             borderColor: "#D1D5DB",
             boxShadow: "none",
             backgroundColor: "#ffffff",

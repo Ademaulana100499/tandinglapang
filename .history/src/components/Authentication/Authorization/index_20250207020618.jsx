@@ -8,39 +8,30 @@ const Authorization = ({ children }) => {
   const router = useRouter();
   const { email } = useRole();
   const [isAuthenticated, setIsAuthenticated] = useState(null);
-  const [hasAccess, setHasAccess] = useState(true);
 
   useEffect(() => {
-    const checkAccess = async () => {
-      if (typeof window !== "undefined") {
-        try {
-          const token = getCookie("token");
-          const path = router.pathname;
-          if (!token) {
+    if (typeof window !== "undefined") {
+      try {
+        const token = getCookie("token");
+        const path = router.pathname;
+
+        if (!token) {
+          router.push("/unauthorized");
+        } else {
+          if (path === "/dashboard" && !email.endsWith("@dibimbing.com")) {
             router.push("/unauthorized");
           } else {
-            if (
-              path === "/dashboard" &&
-              email &&
-              !email.endsWith("@dibimbing.com")
-            ) {
-              setHasAccess(false);
-              router.push("/unauthorized");
-            } else {
-              setIsAuthenticated(true);
-            }
+            setIsAuthenticated(true);
           }
-        } catch (error) {
-          console.error("Error fetching token:", error);
-          router.push("/unauthorized");
         }
+      } catch (error) {
+        console.error("Error fetching token:", error);
+        router.push("/unauthorized");
       }
-    };
-
-    checkAccess();
+    }
   }, [router, email]);
 
-  if (isAuthenticated === null || !hasAccess) {
+  if (isAuthenticated === null) {
     return (
       <div className="h-screen flex justify-center items-center bg-gradient-to-r from-green-400 to-green-600">
         <BarLoader />

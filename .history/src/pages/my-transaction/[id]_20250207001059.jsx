@@ -6,6 +6,7 @@ import Image from "next/image";
 import { CancelTransaction } from "@/components/Transaction/ButtonCancelTransaction";
 import { UploadPayment } from "@/components/Transaction/UploadPayment";
 import { IoClose } from "react-icons/io5";
+import { UpdateTransaction } from "@/components/Transaction/ButtonUpdateTransaction";
 import Authorization from "@/components/Authentication/Authorization";
 
 const DetailMyTransaction = ({ data, role }) => {
@@ -144,6 +145,9 @@ const DetailMyTransaction = ({ data, role }) => {
                   {role === "user" && <UploadPayment transactionId={data.id} />}
                 </div>
               </div>
+              {role === "organizer" && !isCancelled && !isCompleted && (
+                <UpdateTransaction transactionId={data.id} />
+              )}
               {role === "user" && !isCancelled && !isCompleted && (
                 <CancelTransaction transactionId={data.id} />
               )}
