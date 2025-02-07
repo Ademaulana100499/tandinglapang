@@ -2,11 +2,10 @@ import { deleteCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { getCookie } from "cookies-next";
 
 export const useLogout = () => {
   const router = useRouter();
-  const token = getCookie("token");
+
   const handleButtonLogout = async () => {
     try {
       await axios.post(
@@ -20,9 +19,6 @@ export const useLogout = () => {
       );
 
       deleteCookie("token");
-      deleteCookie("email");
-      deleteCookie("role");
-      deleteCookie("roleId");
       router.push("/");
 
       Swal.fire({

@@ -192,6 +192,7 @@ export const Navbar = () => {
       <div>
         <DisclosurePanel className="sm:hidden">
           <div className="space-y-1 px-2 pt-2 pb-3">
+            {/* Mobile Menu Links */}
             <DisclosureButton
               as="a"
               href="/#home"

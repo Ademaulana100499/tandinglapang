@@ -20,9 +20,6 @@ export const useLogout = () => {
       );
 
       deleteCookie("token");
-      deleteCookie("email");
-      deleteCookie("role");
-      deleteCookie("roleId");
       router.push("/");
 
       Swal.fire({

@@ -13,6 +13,7 @@ import useNavbar from "@/hooks/useNavbar";
 import { useState, useEffect } from "react";
 import { useLogout } from "@/hooks/useLogout";
 import { LoginModal } from "@/components/Authentication/LoginModal";
+import { getCookie } from "cookies-next";
 export const Navbar = () => {
   const { data, loading, token } = useNavbar();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -20,6 +21,7 @@ export const Navbar = () => {
   const { handleButtonLogout } = useLogout();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const email = getCookie("email");
 
   const handleScroll = () => {
     if (window.scrollY > window.innerHeight / 2) {
@@ -57,6 +59,7 @@ export const Navbar = () => {
     };
   }, []);
 
+  const isEmailDibimbing = email?.endsWith("@dibimbing.com");
   return (
     <Disclosure
       as="nav"
@@ -98,15 +101,27 @@ export const Navbar = () => {
                   }`}>
                   Home
                 </Link>
-                <Link
-                  href="/explore"
-                  className={`text-gray-500 rounded px-6 py-2 text-md font-medium ${
-                    activeSection === "explore"
-                      ? "text-white"
-                      : "hover:text-white"
-                  }`}>
-                  Explore
-                </Link>
+                {isEmailDibimbing ? (
+                  <Link
+                    href="/dashboard"
+                    className={`text-gray-500 rounded px-6 py-2 text-md font-medium ${
+                      activeSection === "explore"
+                        ? "text-white"
+                        : "hover:text-white"
+                    }`}>
+                    Dashboard
+                  </Link>
+                ) : (
+                  <Link
+                    href="/explore"
+                    className={`text-gray-500 rounded px-6 py-2 text-md font-medium ${
+                      activeSection === "explore"
+                        ? "text-white"
+                        : "hover:text-white"
+                    }`}>
+                    Explore
+                  </Link>
+                )}
                 <Link
                   href="/#category"
                   className={`text-gray-500 rounded px-6 py-2 text-md font-medium ${
@@ -159,11 +174,13 @@ export const Navbar = () => {
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link
-                      href="/my-transaction"
-                      className="block px-4 py-2 text-sm text-white data-focus:bg-gray-100 data-focus:outline-hidden">
-                      Transaksi
-                    </Link>
+                    {email && !email.endsWith("@dibimbing") && (
+                      <Link
+                        href="/my-transaction"
+                        className="block px-4 py-2 text-sm text-white data-focus:bg-gray-100 data-focus:outline-hidden">
+                        Transaksi
+                      </Link>
+                    )}
                   </MenuItem>
                   <MenuItem>
                     <button
@@ -192,18 +209,28 @@ export const Navbar = () => {
       <div>
         <DisclosurePanel className="sm:hidden">
           <div className="space-y-1 px-2 pt-2 pb-3">
+            {/* Mobile Menu Links */}
             <DisclosureButton
               as="a"
               href="/#home"
               className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-green-500 hover:text-white">
               Home
             </DisclosureButton>
-            <DisclosureButton
-              as="a"
-              href="/explore"
-              className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-green-500 hover:text-white">
-              Explore
-            </DisclosureButton>
+            {isEmailDibimbing ? (
+              <DisclosureButton
+                as="a"
+                href="/dashboard"
+                className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-green-500 hover:text-white">
+                Dashboard
+              </DisclosureButton>
+            ) : (
+              <DisclosureButton
+                as="a"
+                href="/explore"
+                className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-green-500 hover:text-white">
+                Explore
+              </DisclosureButton>
+            )}
             <DisclosureButton
               as="a"
               href="/#category"

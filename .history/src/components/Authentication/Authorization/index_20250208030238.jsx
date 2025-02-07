@@ -15,13 +15,26 @@ const Authorization = ({ children }) => {
         try {
           const token = getCookie("token");
           const path = router.pathname;
+
+          // Jika token tidak ada, arahkan ke halaman unauthorized
           if (!token) {
             router.push("/unauthorized");
           } else {
+            // Jika halaman adalah /dashboard dan email tidak berakhiran @dibimbing.com
             if (
               path === "/dashboard" &&
               email &&
               !email.endsWith("@dibimbing.com")
+            ) {
+              setHasAccess(true);
+            }
+            // Jika halaman adalah /explore, /my-transaction, atau /home dan email berakhiran @dibimbing.com
+            else if (
+              (path === "/explore" ||
+                path === "/my-transaction" ||
+                path === "/") &&
+              email &&
+              email.endsWith("@dibimbing.com")
             ) {
               setHasAccess(false);
               router.push("/unauthorized");

@@ -15,6 +15,7 @@ const Authorization = ({ children }) => {
         try {
           const token = getCookie("token");
           const path = router.pathname;
+
           if (!token) {
             router.push("/unauthorized");
           } else {
@@ -22,6 +23,14 @@ const Authorization = ({ children }) => {
               path === "/dashboard" &&
               email &&
               !email.endsWith("@dibimbing.com")
+            ) {
+              setHasAccess(true);
+            } else if (
+              (path === "/explore" ||
+                path === "/my-transaction" ||
+                path === "/") &&
+              email &&
+              email.endsWith("@dibimbing.com")
             ) {
               setHasAccess(false);
               router.push("/unauthorized");

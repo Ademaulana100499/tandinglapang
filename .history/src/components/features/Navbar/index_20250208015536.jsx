@@ -13,6 +13,7 @@ import useNavbar from "@/hooks/useNavbar";
 import { useState, useEffect } from "react";
 import { useLogout } from "@/hooks/useLogout";
 import { LoginModal } from "@/components/Authentication/LoginModal";
+import getCookie from "cookies-next";
 export const Navbar = () => {
   const { data, loading, token } = useNavbar();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -20,6 +21,8 @@ export const Navbar = () => {
   const { handleButtonLogout } = useLogout();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const role = getCookie("role");
+  const email = getCookie("email");
 
   const handleScroll = () => {
     if (window.scrollY > window.innerHeight / 2) {
@@ -192,6 +195,7 @@ export const Navbar = () => {
       <div>
         <DisclosurePanel className="sm:hidden">
           <div className="space-y-1 px-2 pt-2 pb-3">
+            {/* Mobile Menu Links */}
             <DisclosureButton
               as="a"
               href="/#home"

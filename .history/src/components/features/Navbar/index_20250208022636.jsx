@@ -13,6 +13,8 @@ import useNavbar from "@/hooks/useNavbar";
 import { useState, useEffect } from "react";
 import { useLogout } from "@/hooks/useLogout";
 import { LoginModal } from "@/components/Authentication/LoginModal";
+import { getCookie } from "cookies-next";
+
 export const Navbar = () => {
   const { data, loading, token } = useNavbar();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -20,6 +22,7 @@ export const Navbar = () => {
   const { handleButtonLogout } = useLogout();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const email = getCookie("email");
 
   const handleScroll = () => {
     if (window.scrollY > window.innerHeight / 2) {
@@ -27,6 +30,7 @@ export const Navbar = () => {
     } else {
       setIsScrolled(false);
     }
+
     const sections = ["home", "explore", "category", "about"];
     sections.forEach((section) => {
       const element = document.getElementById(section);
@@ -42,9 +46,9 @@ export const Navbar = () => {
       }
     });
   };
+
   useEffect(() => {
     const path = window.location.pathname;
-
     if (path === "/explore") {
       setActiveSection("explore");
     }
@@ -57,16 +61,18 @@ export const Navbar = () => {
     };
   }, []);
 
+  const isEmailDibimbing = email?.endsWith("@dibimbing.com");
+
   return (
     <Disclosure
       as="nav"
-      className={`w-screen sticky top-0 z-50 transition duration-1000  ${
-        isScrolled ? "backdrop-blur-md  bg-black/20" : "bg-black"
+      className={`w-screen sticky top-0 z-50 transition duration-1000 ${
+        isScrolled ? "backdrop-blur-md bg-black/20" : "bg-black"
       }`}>
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-            {/* Mobile menu button*/}
+            {/* Mobile menu button */}
             <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-black hover:text-white focus:ring-2 focus:ring-white focus:outline-hidden focus:ring-inset">
               <span className="absolute -inset-0.5" />
               <span className="sr-only">Open main menu</span>
@@ -80,6 +86,7 @@ export const Navbar = () => {
               />
             </DisclosureButton>
           </div>
+
           <div className="flex flex-1 items-center gap-20 justify-center sm:items-stretch sm:justify-start">
             <div className="flex shrink-0 items-center text-white font-bold text-2xl">
               <Link href="/#">
@@ -88,6 +95,7 @@ export const Navbar = () => {
                 </span>
               </Link>
             </div>
+
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex justify-center items-center space-x-4">
                 {/* Navigation Links */}
@@ -98,15 +106,29 @@ export const Navbar = () => {
                   }`}>
                   Home
                 </Link>
-                <Link
-                  href="/explore"
-                  className={`text-gray-500 rounded px-6 py-2 text-md font-medium ${
-                    activeSection === "explore"
-                      ? "text-white"
-                      : "hover:text-white"
-                  }`}>
-                  Explore
-                </Link>
+
+                {isEmailDibimbing ? (
+                  <Link
+                    href="/dashboard"
+                    className={`text-gray-500 rounded px-6 py-2 text-md font-medium ${
+                      activeSection === "explore"
+                        ? "text-white"
+                        : "hover:text-white"
+                    }`}>
+                    Dashboard
+                  </Link>
+                ) : (
+                  <Link
+                    href="/explore"
+                    className={`text-gray-500 rounded px-6 py-2 text-md font-medium ${
+                      activeSection === "explore"
+                        ? "text-white"
+                        : "hover:text-white"
+                    }`}>
+                    Explore
+                  </Link>
+                )}
+
                 <Link
                   href="/#category"
                   className={`text-gray-500 rounded px-6 py-2 text-md font-medium ${
@@ -116,6 +138,7 @@ export const Navbar = () => {
                   }`}>
                   Category
                 </Link>
+
                 <Link
                   href="/#about"
                   className={`text-gray-500 rounded px-6 py-2 text-md font-medium ${
@@ -128,6 +151,7 @@ export const Navbar = () => {
               </div>
             </div>
           </div>
+
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             {loading ? (
               <p>Loading...</p>
@@ -144,8 +168,8 @@ export const Navbar = () => {
                     />
                   </MenuButton>
                   <div className="hidden lg:block">
-                    <p className="text-sm  text-white mb-0">{data?.name}</p>
-                    <p className="text-xs text-white ">{data?.role}</p>
+                    <p className="text-sm text-white mb-0">{data?.name}</p>
+                    <p className="text-xs text-white">{data?.role}</p>
                   </div>
                 </div>
                 <MenuItems
@@ -168,8 +192,7 @@ export const Navbar = () => {
                   <MenuItem>
                     <button
                       onClick={handleButtonLogout}
-                      className="block px-4 py-2 text-sm text-white
-                      data-focus:bg-gray-100 data-focus:outline-hidden">
+                      className="block px-4 py-2 text-sm text-white data-focus:bg-gray-100 data-focus:outline-hidden">
                       Log out
                     </button>
                   </MenuItem>
@@ -189,21 +212,32 @@ export const Navbar = () => {
           </div>
         </div>
       </div>
+
       <div>
         <DisclosurePanel className="sm:hidden">
           <div className="space-y-1 px-2 pt-2 pb-3">
+            {/* Mobile Menu Links */}
             <DisclosureButton
               as="a"
               href="/#home"
               className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-green-500 hover:text-white">
               Home
             </DisclosureButton>
-            <DisclosureButton
-              as="a"
-              href="/explore"
-              className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-green-500 hover:text-white">
-              Explore
-            </DisclosureButton>
+            {isEmailDibimbing ? (
+              <DisclosureButton
+                as="a"
+                href="/dashboard"
+                className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-green-500 hover:text-white">
+                Dashboard
+              </DisclosureButton>
+            ) : (
+              <DisclosureButton
+                as="a"
+                href="/explore"
+                className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-green-500 hover:text-white">
+                Explore
+              </DisclosureButton>
+            )}
             <DisclosureButton
               as="a"
               href="/#category"
@@ -219,6 +253,7 @@ export const Navbar = () => {
           </div>
         </DisclosurePanel>
       </div>
+
       <LoginModal isOpen={isLoginOpen} setIsOpen={setIsLoginOpen} />
     </Disclosure>
   );

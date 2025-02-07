@@ -1,12 +1,9 @@
 import axios from "axios";
 import { deleteCookie } from "cookies-next";
+import { getCookie } from "cookies-next";
 
 export default async function handler(req, res) {
-  const token = req.cookies.token || "";
-
-  if (!token) {
-    return res.status(401).json({ message: "Unauthorized, no token provided" });
-  }
+  const token = getCookie("token", { req, res });
   try {
     console.log("Token:", token);
 
