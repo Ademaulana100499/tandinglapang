@@ -7,12 +7,11 @@ const AllTransactions = () => {
   const [allTransactions, setAllTransactions] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 16;
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [refresh, setRefresh] = useState(false);
-
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const fetchTransactions = async () => {
     setLoading(true);
     setError(null);
@@ -21,7 +20,7 @@ const AllTransactions = () => {
       if (!token) throw new Error("Token tidak ditemukan, harap login ulang.");
 
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/all-transaction?per_page=1000`,
+        `${process.env.NEXT_PUBLIC_API_URL}/all-transaction?per_page=116`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -46,7 +45,7 @@ const AllTransactions = () => {
 
   useEffect(() => {
     fetchTransactions();
-  }, [refresh]);
+  }, [refresh, itemsPerPage]);
 
   useEffect(() => {
     if (allTransactions.length > 0) {

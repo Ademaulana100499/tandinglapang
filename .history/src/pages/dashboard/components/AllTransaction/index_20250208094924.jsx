@@ -21,7 +21,7 @@ const AllTransactions = () => {
       if (!token) throw new Error("Token tidak ditemukan, harap login ulang.");
 
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/all-transaction?per_page=1000`,
+        `${process.env.NEXT_PUBLIC_API_URL}/all-transaction?per_page=116`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

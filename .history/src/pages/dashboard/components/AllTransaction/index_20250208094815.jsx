@@ -4,10 +4,7 @@ import { getCookie } from "cookies-next";
 import DetailTransaction from "./id";
 
 const AllTransactions = () => {
-  const [allTransactions, setAllTransactions] = useState([]);
   const [transactions, setTransactions] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 16;
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
@@ -21,21 +18,13 @@ const AllTransactions = () => {
       if (!token) throw new Error("Token tidak ditemukan, harap login ulang.");
 
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/all-transaction?per_page=1000`,
+        `${process.env.NEXT_PUBLIC_API_URL}/all-transaction`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
 
-      let sortedTransactions = response.data?.result?.data || [];
-
-      sortedTransactions.sort((a, b) => {
-        const statusOrder = { pending: 1, success: 2, cancelled: 3 };
-        return statusOrder[a.status] - statusOrder[b.status];
-      });
-
-      setAllTransactions(sortedTransactions);
-      setTransactions(sortedTransactions.slice(0, itemsPerPage));
+      setTransactions(response.data?.result?.data || []);
     } catch (error) {
       console.error("Error fetching transactions:", error);
       setError(error.message);
@@ -47,19 +36,6 @@ const AllTransactions = () => {
   useEffect(() => {
     fetchTransactions();
   }, [refresh]);
-
-  useEffect(() => {
-    if (allTransactions.length > 0) {
-      const startIndex = (currentPage - 1) * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
-      const paginatedData = allTransactions.slice(startIndex, endIndex);
-
-      console.log(`🔄 Data untuk halaman ${currentPage}:`, paginatedData);
-      setTransactions(paginatedData);
-    }
-  }, [currentPage, allTransactions]);
-
-  const totalPages = Math.ceil(allTransactions.length / itemsPerPage);
 
   return (
     <div className="min-h-screen flex flex-col justify-between max-w-screen container mx-auto p-5">
@@ -80,14 +56,7 @@ const AllTransactions = () => {
                 </h2>
                 <p className="text-sm text-gray-600 mt-2">
                   Status:{" "}
-                  <span
-                    className={`font-medium ${
-                      transaction.status === "pending"
-                        ? "text-blue-500"
-                        : transaction.status === "cancelled"
-                        ? "text-red-500"
-                        : "text-green-600"
-                    }`}>
+                  <span className="font-medium text-black">
                     {transaction.status}
                   </span>
                 </p>
@@ -106,27 +75,6 @@ const AllTransactions = () => {
               </div>
             ))}
           </div>
-          {totalPages > 1 && (
-            <div className="flex justify-center mt-6 space-x-2">
-              <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-                className="text-black hover:underline disabled:opacity-50">
-                &laquo; Sebelumnya
-              </button>
-              <span className="text-black font-semibold py-2">
-                Halaman {currentPage} dari {totalPages}
-              </span>
-              <button
-                onClick={() =>
-                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                }
-                disabled={currentPage === totalPages}
-                className="text-black hover:underline disabled:opacity-50">
-                Selanjutnya &raquo;
-              </button>
-            </div>
-          )}
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center space-y-4 py-10 bg-white rounded-sm border-2 border-black">

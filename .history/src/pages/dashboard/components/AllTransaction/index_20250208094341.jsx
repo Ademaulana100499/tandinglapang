@@ -21,7 +21,7 @@ const AllTransactions = () => {
       if (!token) throw new Error("Token tidak ditemukan, harap login ulang.");
 
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/all-transaction?per_page=1000`,
+        `${process.env.NEXT_PUBLIC_API_URL}/all-transaction?per_page=116`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -48,18 +48,18 @@ const AllTransactions = () => {
     fetchTransactions();
   }, [refresh]);
 
-  useEffect(() => {
-    if (allTransactions.length > 0) {
-      const startIndex = (currentPage - 1) * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
-      const paginatedData = allTransactions.slice(startIndex, endIndex);
+  // useEffect(() => {
+  //   if (allTransactions.length > 0) {
+  //     const startIndex = (currentPage - 1) * itemsPerPage;
+  //     const endIndex = startIndex + itemsPerPage;
+  //     const paginatedData = allTransactions.slice(startIndex, endIndex);
 
-      console.log(`🔄 Data untuk halaman ${currentPage}:`, paginatedData);
-      setTransactions(paginatedData);
-    }
-  }, [currentPage, allTransactions]);
+  //     console.log(`🔄 Data untuk halaman ${currentPage}:`, paginatedData);
+  //     setTransactions(paginatedData);
+  //   }
+  // }, [currentPage, allTransactions]);
 
-  const totalPages = Math.ceil(allTransactions.length / itemsPerPage);
+  // const totalPages = Math.ceil(allTransactions.length / itemsPerPage);
 
   return (
     <div className="min-h-screen flex flex-col justify-between max-w-screen container mx-auto p-5">

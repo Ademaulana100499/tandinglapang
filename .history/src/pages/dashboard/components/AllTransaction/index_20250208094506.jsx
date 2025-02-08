@@ -21,7 +21,7 @@ const AllTransactions = () => {
       if (!token) throw new Error("Token tidak ditemukan, harap login ulang.");
 
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/all-transaction?per_page=1000`,
+        `${process.env.NEXT_PUBLIC_API_URL}/all-transaction?per_page=116`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -29,10 +29,10 @@ const AllTransactions = () => {
 
       let sortedTransactions = response.data?.result?.data || [];
 
-      sortedTransactions.sort((a, b) => {
-        const statusOrder = { pending: 1, success: 2, cancelled: 3 };
-        return statusOrder[a.status] - statusOrder[b.status];
-      });
+      sortedTransactions = [
+        ...sortedTransactions.filter((t) => t.status === "pending"),
+        ...sortedTransactions.filter((t) => t.status !== "pending"),
+      ];
 
       setAllTransactions(sortedTransactions);
       setTransactions(sortedTransactions.slice(0, itemsPerPage));

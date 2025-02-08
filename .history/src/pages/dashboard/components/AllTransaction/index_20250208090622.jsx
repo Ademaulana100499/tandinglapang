@@ -11,42 +11,43 @@ const AllTransactions = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
-  const [refresh, setRefresh] = useState(false);
-
-  const fetchTransactions = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const token = getCookie("token");
-      if (!token) throw new Error("Token tidak ditemukan, harap login ulang.");
-
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/all-transaction?per_page=1000`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      let sortedTransactions = response.data?.result?.data || [];
-
-      sortedTransactions.sort((a, b) => {
-        const statusOrder = { pending: 1, success: 2, cancelled: 3 };
-        return statusOrder[a.status] - statusOrder[b.status];
-      });
-
-      setAllTransactions(sortedTransactions);
-      setTransactions(sortedTransactions.slice(0, itemsPerPage));
-    } catch (error) {
-      console.error("Error fetching transactions:", error);
-      setError(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   useEffect(() => {
+    if (selectedTransaction) {
+      const fetchTransactions = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+          const token = getCookie("token");
+          if (!token)
+            throw new Error("Token tidak ditemukan, harap login ulang.");
+
+          const response = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_URL}/all-transaction?per_page=116`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
+
+          let sortedTransactions = response.data?.result?.data || [];
+
+          sortedTransactions.sort((a, b) => {
+            const statusOrder = { pending: 1, success: 2, cancelled: 3 };
+            return statusOrder[a.status] - statusOrder[b.status];
+          });
+
+          setAllTransactions(sortedTransactions);
+          setTransactions(sortedTransactions.slice(0, itemsPerPage));
+        } catch (error) {
+          console.error("Error fetching transactions:", error);
+          setError(error.message);
+        } finally {
+          setLoading(false);
+        }
+      };
+    }
     fetchTransactions();
-  }, [refresh]);
+  }, []);
 
   useEffect(() => {
     if (allTransactions.length > 0) {
@@ -139,10 +140,7 @@ const AllTransactions = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
           <DetailTransaction
             id={selectedTransaction.id}
-            setSelectedTransaction={() => {
-              setSelectedTransaction(null);
-              setRefresh((prev) => !prev);
-            }}
+            setSelectedTransaction={setSelectedTransaction}
           />
         </div>
       )}
