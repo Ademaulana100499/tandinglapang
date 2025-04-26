@@ -85,40 +85,57 @@ const shuffle = (array) => {
   return array;
 };
 
-const generateSquares = () => {
-  return shuffle(squareData).map((sq) => (
-    <motion.div
-      key={sq.id}
-      layout
-      transition={{ duration: 1.5, type: "spring" }}
-      className="w-full h-full"
-      style={{
-        backgroundImage: `url(${sq.src})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}></motion.div>
-  ));
-};
-
 export const ShuffleGrid = () => {
-  const timeoutRef = useRef(null);
-  const [squares, setSquares] = useState(generateSquares());
+  const [mounted, setMounted] = useState(false);
+  const [items, setItems] = useState(squareData);
 
   useEffect(() => {
-    shuffleSquares();
+    setMounted(true);
+    const interval = setInterval(() => {
+      setItems((prevItems) => shuffle([...prevItems]));
+    }, 3000);
 
-    return () => clearTimeout(timeoutRef.current);
+    return () => clearInterval(interval);
   }, []);
 
-  const shuffleSquares = () => {
-    setSquares(generateSquares());
-
-    timeoutRef.current = setTimeout(shuffleSquares, 3000);
-  };
+  if (!mounted) {
+    return (
+      <div className="grid grid-cols-4 grid-rows-4 h-[450px] gap-1">
+        {squareData.map((item) => (
+          <div key={item.id} className="w-full h-full relative overflow-hidden">
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{
+                backgroundImage: `url(${item.src})`,
+              }}
+            />
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-4 grid-rows-4 h-[450px] gap-1">
-      {squares}
+      {items.map((item) => (
+        <motion.div
+          key={item.id}
+          layout
+          transition={{
+            duration: 0.8,
+            type: "spring",
+            stiffness: 50,
+            damping: 15,
+          }}
+          className="w-full h-full relative overflow-hidden">
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${item.src})`,
+            }}
+          />
+        </motion.div>
+      ))}
     </div>
   );
 };
